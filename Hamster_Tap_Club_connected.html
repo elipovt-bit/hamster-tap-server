@@ -1,0 +1,548 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#101a2d"><title>Hamster Tap Club</title>
+<style>
+:root{--bg:#0c1323;--panel:#17233b;--panel2:#202f4c;--gold:#ffd36c;--mint:#79f0c0;--text:#f7f8ff;--muted:#a8b4cc;--line:#354866}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 50% -10%,#31466b 0,#121d32 42%,var(--bg) 78%);font-family:system-ui,-apple-system,Segoe UI,sans-serif;color:var(--text);min-height:100vh}button{font:inherit;cursor:pointer;touch-action:manipulation}button:focus-visible{outline:3px solid white;outline-offset:3px}.app{max-width:720px;margin:auto;padding:16px 14px 32px}.top{display:flex;align-items:center;justify-content:space-between;gap:12px}.brand{display:flex;align-items:center;gap:10px}.logo{width:44px;height:44px;border-radius:14px;background:linear-gradient(135deg,#ffe89d,#f3a83b);display:grid;place-items:center;font-size:26px}.brand b{font-size:18px;letter-spacing:1px}.brand small{display:block;color:var(--muted);font-size:10px;letter-spacing:2px}.balance{background:#1d2c47;border:1px solid #53627c;padding:10px 13px;border-radius:13px;text-align:right}.balance small{display:block;color:var(--muted);font-size:10px}.balance strong{color:var(--gold);font-size:18px}.nav{display:flex;gap:7px;overflow-x:auto;margin:18px 0 14px;padding-bottom:3px}.nav button{flex:1;min-width:max-content;background:#17243b;border:1px solid var(--line);border-radius:12px;color:var(--muted);padding:11px 12px;font-weight:750}.nav button.active{background:var(--gold);color:#27200e;border-color:var(--gold)}.page{display:none}.page.active{display:block}.hero{background:linear-gradient(135deg,#273d60,#182b48);border:1px solid #4c6387;border-radius:22px;padding:18px}.eyebrow{color:var(--mint);font-size:11px;letter-spacing:2px;font-weight:850}.hero h2{font-size:29px;line-height:1.12;margin:9px 0}.hero p{color:#c3cde0;font-size:14px;line-height:1.5;margin:0}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0}.stat{background:var(--panel);border:1px solid var(--line);border-radius:15px;padding:12px 8px;text-align:center}.stat small{display:block;color:var(--muted);font-size:11px}.stat strong{display:block;color:var(--gold);font-size:19px;margin-top:4px}.pet-area{margin:13px 0;background:radial-gradient(circle at 50% 45%,#314c70,#172640 65%,#121d30);border:1px solid #405575;border-radius:24px;padding:16px 12px;text-align:center;position:relative;overflow:hidden}.level{display:inline-block;border:1px solid #657895;border-radius:999px;padding:7px 13px;font-size:12px;color:var(--gold);background:#101b2bbb;box-shadow:0 0 22px #ffd36c18}.xp-track{height:8px;max-width:280px;margin:10px auto 4px;border-radius:99px;background:#0c1525;overflow:hidden;border:1px solid #526582}.xp-fill{height:100%;width:0;background:linear-gradient(90deg,#b06cff,#75e7ff,#ffe27a);border-radius:99px;transition:width .45s ease}.xp-caption{font-size:11px;color:#c7d5ed;margin-bottom:4px}.pet-area:before,.pet-area:after{content:"✦";position:absolute;color:#ffe69a;opacity:.6;pointer-events:none;animation:twinkle 2.6s ease-in-out infinite}.pet-area:before{top:22%;left:10%;font-size:17px}.pet-area:after{right:11%;top:34%;font-size:12px;animation-delay:1s}.pet{filter:drop-shadow(0 0 0 transparent)}.pet svg{transition:filter .4s ease}.pet.bop{animation:petBounce .18s ease}.nav button{transition:transform .15s,background .2s}.nav button:active,.btn:active{transform:scale(.97)}.btn:disabled{opacity:.55;cursor:not-allowed;filter:saturate(.6)}.hero,.stat,.upgrade,.evolution-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin-top:12px}.evo-card{background:linear-gradient(145deg,#202f4c,#121e33);border:1px solid #354866;border-radius:16px;padding:12px;display:flex;gap:10px;align-items:center;min-width:0}.evo-card.locked{opacity:.62;filter:saturate(.65)}.evo-avatar{width:52px;height:52px;border-radius:16px;display:grid;place-items:center;font-size:29px;flex-shrink:0;animation:evoFloat 3s ease-in-out infinite}.evo-card b{font-size:12px;display:block}.evo-card small{font-size:10px;color:var(--muted);display:block;margin-top:4px;line-height:1.35}.task-tag{display:inline-block;font-size:10px;border:1px solid #536582;border-radius:99px;padding:3px 7px;color:#d7e2f4;margin-top:5px}@keyframes evoFloat{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-4px) rotate(3deg)}}.task{box-shadow:0 8px 22px #00000012;transition:border-color .2s,transform .2s}.upgrade:active,.task:active{transform:translateY(1px)}.streak-pill{display:inline-flex;align-items:center;gap:6px;background:#482d3a;border:1px solid #a65b67;color:#ffd5c4;border-radius:999px;padding:6px 11px;font-size:12px;font-weight:800;margin-top:8px}.milestone{margin-top:10px;padding:11px 12px;border:1px solid #53678a;background:linear-gradient(110deg,#263d61,#202d4a);border-radius:13px;text-align:left;font-size:12px;line-height:1.45;color:#dbe5fa}.milestone b{color:#ffe28a}.tap-combo{position:absolute;top:16px;right:14px;color:#ffdf83;font-size:12px;font-weight:850;background:#111c2ccc;border:1px solid #64718b;border-radius:999px;padding:6px 9px;opacity:0;transform:translateY(4px);transition:opacity .2s,transform .2s}.tap-combo.show{opacity:1;transform:translateY(0)}.pet{border:0;background:transparent;display:block;margin:0 auto;width:min(74vw,310px);height:min(74vw,310px);max-height:310px;max-width:310px;border-radius:50%;position:relative;transition:transform .09s;user-select:none;-webkit-user-select:none;-webkit-tap-highlight-color:transparent}.pet:active,.pet.bop{transform:scale(.94) rotate(-2deg)}.pet svg{width:100%;height:100%;filter:drop-shadow(0 15px 15px #0005);pointer-events:none}.tap-hint{color:#d2dbee;font-size:12px;margin:0}.float{position:absolute;color:var(--gold);font-weight:900;font-size:23px;pointer-events:none;animation:rise .75s ease-out forwards;text-shadow:0 2px 6px #000}.energybar{height:9px;border-radius:99px;background:#0d1728;overflow:hidden;margin:8px 0 4px}.energyfill{height:100%;background:linear-gradient(90deg,#73e9b9,#d7f68b);width:100%;transition:width .2s}.btn{border:0;border-radius:13px;padding:13px 15px;font-weight:850}.gold{background:linear-gradient(135deg,#ffe49b,#ffc44d);color:#2c210b}.blue{background:#253957;color:white;border:1px solid #4a6082}.green{background:#1f5b4b;color:#d6ffed;border:1px solid #4c9c82}.full{width:100%}.section-title{font-size:18px;margin:20px 0 10px}.cards{display:grid;gap:10px}.upgrade{display:flex;gap:12px;align-items:center;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:13px}.upgrade-icon{font-size:29px;width:45px;text-align:center}.upgrade-main{flex:1;min-width:0}.upgrade-main b{display:block}.upgrade-main small{display:block;color:var(--muted);line-height:1.4;margin-top:3px}.upgrade button{min-width:94px;padding:10px 9px;font-size:12px}.evolution-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin-top:12px}.evo-card{background:linear-gradient(145deg,#202f4c,#121e33);border:1px solid #354866;border-radius:16px;padding:12px;display:flex;gap:10px;align-items:center;min-width:0}.evo-card.locked{opacity:.62;filter:saturate(.65)}.evo-avatar{width:52px;height:52px;border-radius:16px;display:grid;place-items:center;font-size:29px;flex-shrink:0;animation:evoFloat 3s ease-in-out infinite}.evo-card b{font-size:12px;display:block}.evo-card small{font-size:10px;color:var(--muted);display:block;margin-top:4px;line-height:1.35}.task-tag{display:inline-block;font-size:10px;border:1px solid #536582;border-radius:99px;padding:3px 7px;color:#d7e2f4;margin-top:5px}@keyframes evoFloat{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-4px) rotate(3deg)}}.task{display:flex;gap:10px;align-items:center;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:13px}.task-icon{font-size:23px}.task-main{flex:1}.task-main b{display:block}.task-main small{color:var(--muted)}.task button{padding:10px 12px;font-size:12px}.notice{border:1px solid #4d6d6a;background:#183a3c;border-radius:14px;padding:12px;color:#d3fff1;font-size:12px;line-height:1.5;margin-top:12px}.muted{color:var(--muted);font-size:13px;line-height:1.5}.settings-row{display:flex;justify-content:space-between;align-items:center;gap:12px;border-bottom:1px solid var(--line);padding:14px 0}.settings-row:last-child{border-bottom:0}select{background:var(--panel2);color:white;border:1px solid var(--line);padding:8px;border-radius:9px}.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:#f6d475;color:#211a0b;padding:11px 17px;border-radius:999px;font-weight:850;box-shadow:0 6px 25px #0007;display:none;z-index:10;white-space:nowrap}.rarity-common{border-color:#65748b!important}.rarity-uncommon{border-color:#4caf78!important}.rarity-rare{border-color:#42b8ff!important;box-shadow:0 0 12px #42b8ff18}.rarity-epic{border-color:#b47cff!important;box-shadow:0 0 12px #b47cff22}.rarity-legendary{border-color:#ffbf45!important;box-shadow:0 0 14px #ffbf4525}.rarity-mythic{border-color:#ff6bb7!important;box-shadow:0 0 16px #ff6bb72a}.rank-row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--line)}.rank-row:last-child{border-bottom:0}.feature-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:12px}.feature-card{background:linear-gradient(145deg,#202f4c,#121e33);border:1px solid #354866;border-radius:16px;padding:14px;min-width:0}.feature-card h3{font-size:15px;margin:0 0 6px}.feature-card p{font-size:12px;color:var(--muted);line-height:1.45;margin:0 0 10px}.feature-card .btn{font-size:12px;padding:10px}.wheel{width:150px;height:150px;margin:10px auto;border-radius:50%;display:grid;place-items:center;background:conic-gradient(#ffd36c 0 45deg,#835cff 45deg 90deg,#79f0c0 90deg 135deg,#ff8ab0 135deg 180deg,#ffd36c 180deg 225deg,#835cff 225deg 270deg,#79f0c0 270deg 315deg,#ff8ab0 315deg);box-shadow:0 0 30px #a98bff44;animation:wheelGlow 2s ease-in-out infinite}.wheel.spinning{animation:wheelSpin 2.6s cubic-bezier(.12,.75,.18,1) forwards}.wheel span{background:#17233b;border:3px solid #fff1c5;border-radius:50%;width:82px;height:82px;display:grid;place-items:center;font-size:30px}.room-scene{min-height:145px;border:1px solid #526582;border-radius:16px;background:radial-gradient(circle at 50% 30%,#475f91,#182944 65%);display:flex;align-items:end;justify-content:center;gap:14px;padding:18px;font-size:36px;margin:10px 0}.skill-row{display:flex;align-items:center;gap:10px;margin:8px 0}.skill-row .upgrade-main{flex:1}.progress-track{height:8px;background:#0c1525;border-radius:99px;overflow:hidden;margin:8px 0}.progress-track div{height:100%;background:linear-gradient(90deg,#b06cff,#75e7ff,#ffe27a);width:0}.rank-row{display:flex;justify-content:space-between;gap:10px;padding:10px;border-bottom:1px solid var(--line)}@keyframes wheelGlow{50%{filter:brightness(1.18)}}@keyframes wheelSpin{0%{transform:rotate(0deg);filter:brightness(1)}85%{filter:brightness(1.2)}100%{transform:rotate(1800deg);filter:brightness(1.1)}}.rarity-common{border-color:#64748b!important}.rarity-uncommon{border-color:#4caf78!important;box-shadow:inset 0 0 0 1px #4caf7833}.rarity-rare{border-color:#42b8ff!important;box-shadow:inset 0 0 0 1px #42b8ff44}.rarity-epic{border-color:#b47cff!important;box-shadow:inset 0 0 0 1px #b47cff55}.rarity-legendary{border-color:#ffbf45!important;box-shadow:0 0 13px #ffbf4533}.rarity-mythic{border-color:#ff6bb7!important;box-shadow:0 0 17px #ff6bb755}.footer{text-align:center;color:#7f90ac;font-size:11px;margin-top:24px;line-height:1.6}@keyframes twinkle{0%,100%{transform:scale(.8) rotate(0);opacity:.25}50%{transform:scale(1.25) rotate(20deg);opacity:.9}}@keyframes petBounce{0%{transform:scale(1)}45%{transform:scale(.92) rotate(-3deg)}100%{transform:scale(1)}}@keyframes rise{0%{opacity:0;transform:translateY(8px) scale(.8)}20%{opacity:1}100%{opacity:0;transform:translateY(-70px) scale(1.15)}}@media(max-width:420px){.app{padding:12px 10px}.hero h2{font-size:25px}.upgrade{padding:10px;gap:8px}.upgrade button{min-width:82px}.stat strong{font-size:17px}}
+
+/* Dynamic arcade polish */
+body{background:radial-gradient(ellipse at 12% 0%,#46336f 0,transparent 34%),radial-gradient(ellipse at 100% 22%,#14505c 0,transparent 30%),linear-gradient(145deg,#090f1e,#101b31 55%,#0b1324);background-attachment:fixed}
+.app{animation:appIn .55s cubic-bezier(.2,.8,.2,1) both}
+.logo{box-shadow:0 0 24px #ffc44d55;animation:logoPulse 3s ease-in-out infinite}
+.balance,.hero,.pet-area,.stat,.upgrade,.task,.evo-card{backdrop-filter:blur(10px);transition:transform .22s ease,border-color .22s ease,box-shadow .22s ease}
+.hero{background:linear-gradient(125deg,#304b76dd,#1a2d4bdd 55%,#29204add);box-shadow:0 12px 32px #0002}
+.stat:hover,.upgrade:hover,.task:hover,.evo-card:not(.locked):hover{transform:translateY(-3px);border-color:#8aa5d0;box-shadow:0 10px 24px #0003}
+.nav button{position:relative;overflow:hidden;transition:transform .18s,background .2s,color .2s,box-shadow .2s}
+.nav button.active{box-shadow:0 5px 20px #ffd36c33}
+.nav button.active:after{content:"";position:absolute;left:18%;right:18%;bottom:3px;height:2px;border-radius:2px;background:#fff8}
+.page.active{animation:pageIn .28s ease both}
+.pet-area{box-shadow:inset 0 0 35px #6cccf018,0 14px 35px #0002}
+.pet{cursor:pointer;will-change:transform;filter:drop-shadow(0 0 16px #ffc75c20)}
+.pet:hover{filter:drop-shadow(0 0 22px #ffc75c55)}
+.xp-track{height:11px;box-shadow:0 0 12px #72eaff18}
+.xp-fill{position:relative;background:linear-gradient(90deg,#b06cff,#75e7ff,#ffe27a,#75e7ff);background-size:220% 100%;animation:xpFlow 3s linear infinite}
+.btn{transition:transform .16s ease,filter .2s ease,box-shadow .2s ease}
+.btn:not(:disabled):hover{filter:brightness(1.08);box-shadow:0 6px 18px #0003;transform:translateY(-1px)}
+.gold{box-shadow:0 4px 16px #ffc44d1c}
+.float{animation:rise .75s cubic-bezier(.2,.7,.2,1) forwards}
+.evo-avatar{box-shadow:0 0 0 transparent;transition:box-shadow .25s}
+.energyfill{background:linear-gradient(90deg,#73e9b9,#d7f68b,#73e9b9);background-size:200% 100%;animation:xpFlow 4s linear infinite}
+@keyframes appIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+@keyframes pageIn{from{opacity:.4;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+@keyframes logoPulse{0%,100%{box-shadow:0 0 16px #ffc44d33}50%{box-shadow:0 0 28px #ffc44d77}}
+@keyframes xpFlow{from{background-position:0 0}to{background-position:220% 0}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}}
+
+.own-room{min-height:330px;position:relative;overflow:hidden;border:2px solid #62799d;border-radius:20px;margin:12px 0 16px;padding:18px 12px 20px;display:flex;flex-wrap:wrap;align-content:space-between;justify-content:center;align-items:end;gap:8px;box-shadow:inset 0 -18px 0 #0002,0 12px 30px #0003;isolation:isolate}
+.own-room:before{content:"";position:absolute;inset:0 0 24% 0;background:linear-gradient(180deg,#ffffff12,transparent 45%),repeating-linear-gradient(90deg,transparent 0 74px,#ffffff0b 75px 77px);z-index:-1}
+.own-room:after{content:"";position:absolute;bottom:0;left:0;right:0;height:26%;background:repeating-linear-gradient(90deg,#00000008 0 2px,transparent 2px 56px),linear-gradient(180deg,#ffffff12,#00000012);border-top:3px solid #ffffff20;z-index:-1}
+.own-room .room-item{display:grid;place-items:center;min-width:54px;min-height:54px;padding:6px;border-radius:14px;background:#10192a66;border:1px solid #ffffff26;font-size:34px;filter:drop-shadow(0 4px 3px #0004);animation:roomBob 3s ease-in-out infinite}
+.own-room .room-item.hamster{font-size:65px;min-width:80px;min-height:85px;background:#fff1cf24}
+.own-room .room-item.trophy{font-size:24px;min-width:100%;background:#10192a55}
+.own-room.theme-classic{background:linear-gradient(180deg,#627ca5 0%,#344d70 72%,#9c7657 72%,#72513c 100%)}
+.own-room.theme-pastel{background:linear-gradient(180deg,#eab6cf 0%,#bb9ad8 72%,#e6c9a0 72%,#bf936d 100%);border-color:#f4cde5}
+.own-room.theme-forest{background:linear-gradient(180deg,#4e886d 0%,#285544 72%,#a17b50 72%,#6d4b32 100%);border-color:#8ed5a8}
+.own-room.theme-space{background:radial-gradient(circle at 50% 25%,#6a54a8,#25234e 65%,#22233e 72%,#3b315b 72%,#27213c 100%);border-color:#b59bff}
+.own-room.theme-royal{background:linear-gradient(180deg,#744d9d 0%,#402a63 72%,#d0a84e 72%,#82602b 100%);border-color:#f6d77d}
+.room-theme-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin:10px 0}
+.room-theme{border:1px solid var(--line);background:var(--panel);color:var(--text);border-radius:14px;padding:12px;text-align:left}
+.room-theme.selected{border-color:var(--gold);box-shadow:inset 0 0 0 1px var(--gold)}
+.room-theme b,.room-theme small{display:block}.room-theme small{color:var(--muted);margin-top:4px}
+.room-name-row{display:flex;gap:8px;margin:10px 0}.room-name-row input{flex:1;min-width:0;background:var(--panel2);color:white;border:1px solid var(--line);border-radius:11px;padding:11px}
+@keyframes roomBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+
+.house-progress{border:1px solid #526582;border-radius:15px;padding:12px;background:linear-gradient(130deg,#263d5c,#17243a);margin-bottom:10px}
+.house-progress.current{border-color:#ffd36c;box-shadow:0 0 16px #ffd36c18}
+.house-progress b{display:block;font-size:14px}
+.house-progress small{display:block;color:var(--muted);line-height:1.45;margin:5px 0 9px}
+.house-progress .btn{width:100%}
+.house-tag{display:inline-block;color:#ffe28a;font-size:10px;font-weight:850;letter-spacing:1px;margin-bottom:5px}
+
+/* Integrated owner admin panel */
+.admin-nav{display:none!important}.admin-nav.admin-visible{display:block!important;background:linear-gradient(135deg,#6b2a83,#35214f)!important;color:#fff!important;border-color:#c084fc!important}
+.admin-panel{border:1px solid #8758ad;background:linear-gradient(145deg,#241b3c,#151d32);border-radius:18px;padding:15px;margin-top:12px}
+.admin-panel h3{margin:4px 0 10px}.admin-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.admin-field{display:flex;flex-direction:column;gap:6px;margin:9px 0}.admin-field label{font-size:12px;color:#d8c6f5}.admin-field input,.admin-field select,.admin-field textarea{width:100%;min-width:0;padding:11px;border-radius:10px;border:1px solid #70548d;background:#101629;color:white;font:inherit}.admin-action{width:100%;margin-top:5px}.admin-warning{background:#3d2b1d;border:1px solid #9a703a;color:#ffe2a8;border-radius:12px;padding:11px;font-size:12px;line-height:1.5;margin:10px 0}.admin-status{font-size:12px;color:#d4c5ed;line-height:1.5}.admin-log{max-height:180px;overflow:auto;font-size:12px;color:#d8dced;line-height:1.5}.admin-log div{padding:7px 0;border-bottom:1px solid #ffffff16}
+@media(max-width:420px){.admin-grid{grid-template-columns:1fr}}
+</style></head>
+<body><div class="app">
+<header class="top"><div class="brand"><div class="logo">🐹</div><div><b>HAMSTER TAP CLUB</b><small>ВИРТУАЛЬНАЯ ИГРА</small></div></div><div class="balance"><small>ТВОИ МОНЕТЫ</small><strong id="coins">0</strong></div></header>
+<nav class="nav"><button class="active" data-page="tapPage">🐹 Тапать</button><button data-page="upgradePage">🚀 Улучшения</button><button data-page="tasksPage">🎯 Задания</button><button data-page="extrasPage">✨ Мир</button><button data-page="roomPage">🏡 Комната</button><button data-page="collectionPage">🎒 Коллекция</button><button data-page="profilePage">👤 Профиль</button><button data-page="shopPage">💎 Магазин</button><button data-page="adminPage" id="adminNav" class="admin-nav">👑 Админка</button></nav>
+<section class="page active" id="tapPage">
+<div class="hero"><div class="eyebrow">МИНИ-ИГРА · УРОВЕНЬ <span id="heroLevel">1</span></div><h2>Тапай. Собирай. Прокачивайся.</h2><p>Нажимай на персонажа, собирай монеты и покупай улучшения, чтобы получать больше за каждый тап и со временем зарабатывать пассивно.</p></div>
+<div class="stats"><div class="stat"><small>Монет за тап</small><strong id="perTap">+1</strong></div><div class="stat"><small>Доход в час</small><strong id="hourly">0</strong></div><div class="stat"><small>Энергия</small><strong id="energyText">500/500</strong></div></div>
+<div class="pet-area"><div class="tap-combo" id="tapCombo">🔥 Серия ×1</div><div class="level">⭐ УРОВЕНЬ <span id="level">1</span> · БЕСКОНЕЧНО<br><span id="petStage">Малыш-зёрнышко</span><br><small id="petStageDetail" class="xp-caption">Форма 1/20</small></div><div class="xp-track"><div class="xp-fill" id="xpFill"></div></div><div class="xp-caption" id="xpCaption">0 / 135 XP до следующего уровня</div>
+<button class="pet" id="tapPet" aria-label="Нажми на хомяка"><svg viewBox="0 0 300 300" role="img" aria-label="Милый мультяшный хомяк"><defs><radialGradient id="fur" cx="35%" cy="25%"><stop id="furLight" stop-color="#fff0bd"/><stop id="furMid" offset=".62" stop-color="#e7b66c"/><stop id="furDark" offset="1" stop-color="#b8763f"/></radialGradient><radialGradient id="cheek"><stop stop-color="#ffe9d4"/><stop offset="1" stop-color="#f1c69c"/></radialGradient></defs><ellipse cx="150" cy="260" rx="84" ry="17" fill="#091426" opacity=".35"/><ellipse id="earLeft" cx="91" cy="74" rx="43" ry="48" fill="#c58a4b"/><ellipse id="innerEarLeft" cx="91" cy="77" rx="27" ry="31" fill="#f4b9b1"/><ellipse id="earRight" cx="209" cy="74" rx="43" ry="48" fill="#c58a4b"/><ellipse id="innerEarRight" cx="209" cy="77" rx="27" ry="31" fill="#f4b9b1"/><path d="M58 135 Q49 75 111 62 Q150 42 189 62 Q251 75 242 135 L233 209 Q211 253 150 252 Q89 253 67 209Z" fill="url(#fur)" stroke="#9e693d" stroke-width="3"/><ellipse cx="108" cy="159" rx="37" ry="43" fill="url(#cheek)"/><ellipse cx="192" cy="159" rx="37" ry="43" fill="url(#cheek)"/><ellipse cx="119" cy="127" rx="10" ry="13" fill="#30241f"/><ellipse cx="181" cy="127" rx="10" ry="13" fill="#30241f"/><circle cx="122" cy="123" r="3.5" fill="white"/><circle cx="184" cy="123" r="3.5" fill="white"/><ellipse cx="150" cy="157" rx="15" ry="11" fill="#8d4b52"/><path d="M150 166 Q145 179 134 176 M150 166 Q155 179 166 176" stroke="#75433c" stroke-width="3" fill="none" stroke-linecap="round"/><ellipse cx="150" cy="207" rx="30" ry="25" fill="#fff0d8"/><path d="M127 204 Q150 218 173 204" stroke="#e0b58c" stroke-width="2" fill="none"/><path d="M91 158 L47 151 M91 168 L44 173 M209 158 L253 151 M209 168 L256 173" stroke="#fff1dc" stroke-width="2" stroke-linecap="round"/><circle cx="65" cy="192" r="9" fill="#f4a3a2" opacity=".7"/><circle cx="235" cy="192" r="9" fill="#f4a3a2" opacity=".7"/><path d="M107 225 Q150 245 193 225" stroke="#a56d3e" stroke-width="4" fill="none" stroke-linecap="round"/></svg></button>
+<p class="tap-hint">👆 Нажимай на хомяка, чтобы собирать монеты!</p><div class="milestone" id="milestone">✨ Первый этап: прокачайся и открой новые облики хомяка.</div><div class="energybar"><div class="energyfill" id="energyFill"></div></div><div class="muted">Энергия восстанавливается автоматически</div></div>
+<button class="btn gold full" id="dailyBtn">🎁 Забрать ежедневный бонус · 200 🪙</button><p class="muted" style="text-align:center">🔥 Серия ежедневных бонусов: <b id="streak">0 дней</b></p>
+<div class="notice">⚡ Никаких ожиданий по времени: новый уровень открывается сразу, как только накопишь нужный опыт. Для баланса нужно больше XP на каждый следующий уровень. Прогресс хранится в браузере этого устройства; монеты игровые и не имеют денежной стоимости.</div>
+</section>
+<section class="page" id="upgradePage"><div class="hero"><div class="eyebrow">РАЗВИТИЕ</div><h2>Улучши свою империю</h2><p>Покупай усиления за игровые монеты. Чем выше уровень улучшения, тем дороже следующая покупка.</p></div><h3 class="section-title">Улучшения</h3><div class="cards" id="upgradeList"></div></section>
+<section class="page" id="tasksPage"><div class="hero"><div class="eyebrow">МИССИИ</div><h2>Выполняй задания</h2><p>Задания обновляются каждый новый день по времени твоего устройства. Выполняй их снова и забирай награды.</p></div><h3 class="section-title">Задания · <span id="taskCount">0/200</span></h3><p class="muted">Испытания открываются по мере прокачки. Уровни и награды за новые достижения не заканчиваются.</p><div class="cards" id="taskList"></div><div class="hero" style="margin-top:18px"><div class="eyebrow">КОЛЛЕКЦИЯ</div><h2>Эволюция хомяка</h2><p>Каждые 5 уровней открывается новый уникальный хомяк и привилегия. Коллекция растёт вместе с тобой — уровни бесконечны.</p></div><div class="evolution-grid" id="evolutionGrid"></div></section>
+
+<section class="page" id="extrasPage">
+ <div class="hero"><div class="eyebrow">НОВЫЕ ВОЗМОЖНОСТИ</div><h2>Мир хомяков ✨</h2><p>Коллекционируй редкие формы, прокачивай навыки, украшай комнату и забирай сезонные награды.</p></div>
+ <div class="feature-grid">
+  <div class="feature-card"><h3>🎡 Колесо удачи</h3><p id="wheelStatus">Один бесплатный запуск каждый день. Испытай удачу!</p><div class="wheel"><span id="wheelEmoji">🎁</span></div><button class="btn gold full" id="wheelBtn">Крутить бесплатно</button></div>
+  <div class="feature-card"><h3>🏆 Сезонный пропуск</h3><p>Зарабатывай сезонные очки тапами и уровнями. Награды игровые, без оплаты.</p><strong id="passLevel">Этап 1 / 30</strong><div class="progress-track"><div id="passFill"></div></div><p id="passDesc">Награда этапа: 250 монет</p><button class="btn gold full" id="passBtn">Забрать награду</button></div>
+  <div class="feature-card" style="grid-column:1/-1"><h3>🌞 Событие дня</h3><p id="dailyEventDesc">Выполни особую цель дня и забери награду.</p><div class="progress-track"><div id="dailyEventFill"></div></div><p id="dailyEventProgress">0 / 100 тапов</p><button class="btn gold full" id="dailyEventBtn">Забрать награду</button></div>
+  <div class="feature-card" style="grid-column:1/-1"><h3>🏅 Достижения</h3><p>Большие цели открывают награды и редкие титулы.</p><div id="achievementList"></div></div>
+  <div class="feature-card" style="grid-column:1/-1"><h3>🌳 Дерево навыков и привилегии</h3><p>Каждые 5 уровней новый хомяк и +5% к доходу за тап. Плюс постоянные бонусы к тапам, опыту и энергии от дерева навыков.</p><div id="skillList"></div></div>
+  <div class="feature-card" style="grid-column:1/-1"><h3>🏡 Твоя личная комната</h3><p>Выбирай интерьер, покупай мебель, выставляй редкие трофеи и создай место, которое отражает твой стиль.</p><button class="btn gold full" onclick="showPage('roomPage')">Открыть свою комнату →</button></div>
+  <div class="feature-card" style="grid-column:1/-1"><h3>📊 Локальный рейтинг</h3><p>Это рейтинг на текущем устройстве. Для общего рейтинга с друзьями понадобится сервер.</p><div id="leaderboard"></div></div>
+  <div class="feature-card" style="grid-column:1/-1"><h3>♻️ Перерождение</h3><p>Начиная со 100-го уровня можно переродиться в любой момент. Уровни бесконечны, а каждый новый цикл даёт постоянный бонус к доходу.</p><div id="prestigeInfo"></div><button class="btn gold full" id="prestigeBtn">Переродиться (100+ уровень)</button></div>
+ </div>
+</section>
+<section class="page" id="roomPage">
+ <div class="hero"><div class="eyebrow">ТВОЯ ТЕРРИТОРИЯ</div><h2>🏡 Моя комната</h2><p>Это твой личный уголок. Меняй стиль, покупай мебель и выставляй редкие находки из коллекции.</p></div>
+ <div class="feature-card" style="margin-top:12px"><h3>✍️ Название комнаты</h3><div class="room-name-row"><input id="roomNameInput" maxlength="28" placeholder="Например, Хомячий дворец"/><button id="saveRoomName" class="btn gold">Сохранить</button></div><p class="muted">Текущий уровень комнаты: <b id="roomLevelLabel">1</b> · Коллекционных предметов на витрине: <b id="roomTrophyCount">0</b></p></div>
+ <h3 class="section-title" id="roomTitle">🏡 Комната хомяка</h3>
+ <div class="own-room theme-classic" id="roomScene" aria-label="Твоя украшенная комната"><span class="room-item">🪴</span><span class="room-item hamster">🐹</span><span class="room-item">🛏️</span></div>
+ <h3 class="section-title">🏗️ Дома · развитие по уровням</h3><p class="muted">Это именно улучшение дома: 10 уровней от соломенного гнезда до измерения хомяков. Покупай их по порядку — каждый следующий стоит дороже. Это не то же самое, что интерьер ниже.</p><div class="cards" id="houseUpgradeList"></div>
+ <h3 class="section-title">🎨 Интерьер комнаты · оформление</h3><p class="muted">Здесь покупается только внешний стиль комнаты. Например, «Королевский зал» за 30 000 — это оформление, а не последний дом. Интерьеры не повышают уровень дома.</p><div class="room-theme-grid" id="roomThemeList"></div>
+ <h3 class="section-title">🛋️ Мебель и декор</h3><p class="muted">Покупай предметы, чтобы они появились в комнате. Редкие предметы из коллекции автоматически попадут на витрину.</p><div class="cards" id="roomList"></div>
+ <div class="notice">💡 Совет: собирай коллекционные наборы — их эксклюзивные хомяки тоже появятся в твоей комнате.</div>
+ </section>
+<section class="page" id="collectionPage">
+ <div class="hero"><div class="eyebrow">СОБИРАЙ РЕДКОСТИ</div><h2>🎒 Сокровищница хомяка</h2><p>Каждые 10 уровней получай случайный предмет. Обычные встречаются часто, мифические — почти легенда. Дубликаты после полного сбора превращаются в монеты.</p></div>
+ <div class="stats"><div class="stat"><small>Собрано</small><strong id="collectionCount">0 / 100</strong></div><div class="stat"><small>Редкий+</small><strong id="rareCount">0</strong></div><div class="stat"><small>Следующий предмет</small><strong id="nextItemLevel">10 ур.</strong></div></div>
+ <div class="feature-card" style="margin-top:12px"><h3>🗝️ Сундук коллекционера</h3><p>Ключ выдаётся за каждые 10 уровней. Сундук приносит новый предмет, а система удачи повышает шанс на редкость после неудачных открытий.</p><div class="stats"><div class="stat"><small>Ключи</small><strong id="chestKeys">0</strong></div><div class="stat"><small>Открыто сундуков</small><strong id="chestOpens">0</strong></div><div class="stat"><small>Защита удачи</small><strong id="pityText">0 / 10</strong></div></div><button class="btn gold full" id="chestBtn">Открыть сундук · 1 ключ</button></div>
+ <div class="feature-card" style="margin-top:12px"><h3>🎁 Последняя находка</h3><p id="lastItem">Достигни 10-го уровня, чтобы открыть первый предмет.</p></div>
+ <h3 class="section-title">🧩 Коллекционные наборы</h3><p class="muted">Собери набор из 10 предметов одной серии и получи эксклюзивного хомяка и постоянную привилегию.</p><div class="cards" id="setGrid"></div>
+ <h3 class="section-title">Все 100 предметов</h3><div class="evolution-grid" id="collectionGrid"></div>
+</section>
+<section class="page" id="profilePage"><div class="hero"><div class="eyebrow">ТВОЙ ПРОФИЛЬ</div><h2>Маленький тапер — большие планы</h2><p>Посмотри на свой прогресс и настрой игру под себя.</p></div><div class="stats"><div class="stat"><small>Всего тапов</small><strong id="totalTaps">0</strong></div><div class="stat"><small>Куплено улучшений</small><strong id="totalUpgrades">0</strong></div><div class="stat"><small>Заработано всего</small><strong id="earned">0</strong></div></div><div class="hero"><h3 style="margin-top:0">Настройки</h3><div class="settings-row"><span>Имя игрока</span><input id="playerName" maxlength="18" placeholder="Игрок" style="max-width:150px;width:45%;background:#101b2e;border:1px solid #405575;border-radius:9px;padding:9px;color:white"></div><div class="settings-row"><span>Начать заново</span><button class="btn blue" id="resetBtn">Сбросить прогресс</button></div><p class="muted">Сброс удалит сохранённые монеты, улучшения и задания на этом устройстве.</p><button class="btn gold full" id="saveName">Сохранить имя</button></div></section>
+<section class="page" id="shopPage">
+ <div class="hero"><div class="eyebrow">ПОДДЕРЖИ ПРОЕКТ</div><h2>💎 Премиум-магазин</h2><p>Дополнительные косметические предметы и удобства. Покупки не дают денежного выигрыша и не влияют на случайные награды.</p></div>
+ <div class="notice">🔒 Сейчас это витрина-предпросмотр: реальные платежи ещё не подключены. Кнопки ничего не списывают. Для запуска продаж нужны платёжный провайдер, серверная проверка платежей и опубликованный сайт.</div>
+ <h3 class="section-title">✨ Подписка и наборы</h3>
+ <div class="feature-grid">
+  <div class="feature-card"><h3>🌟 VIP на месяц</h3><p>Эксклюзивная рамка профиля, золотой ник и VIP-декор комнаты. Подписка не продлевается автоматически в демо.</p><strong>990 ₸ / месяц</strong><button class="btn gold full shop-buy" data-offer="VIP на месяц · 990 ₸">Подключить</button></div>
+  <div class="feature-card"><h3>👑 Королевский набор</h3><p>Корона, королевский фон комнаты и особый титул в профиле.</p><strong>1 490 ₸ · разово</strong><button class="btn gold full shop-buy" data-offer="Королевский набор · 1 490 ₸">Посмотреть</button></div>
+  <div class="feature-card"><h3>🌌 Космический набор</h3><p>Космический интерьер, сияющая рамка и тематический декор.</p><strong>1 490 ₸ · разово</strong><button class="btn gold full shop-buy" data-offer="Космический набор · 1 490 ₸">Посмотреть</button></div>
+  <div class="feature-card"><h3>🐹 Набор поддержки</h3><p>Особый значок «Поддержал проект» и имя в списке благодарностей, если игрок сам согласится на публикацию.</p><strong>2 490 ₸ · разово</strong><button class="btn gold full shop-buy" data-offer="Набор поддержки · 2 490 ₸">Посмотреть</button></div>
+ </div>
+ <h3 class="section-title">📢 Реклама и партнёры</h3><div class="feature-card"><h3>Рекламное место</h3><p>Здесь можно разместить честно помеченную рекламу или партнёрскую ссылку. Доход зависит от реального рекламного партнёра и посещаемости; он не гарантирован.</p><div class="notice">Совет: не добавляй сторонние скрипты и рекламные сети, пока не проверишь их правила, конфиденциальность и возрастные ограничения.</div></div>
+</section>
+ <section class="page" id="adminPage">
+  <div class="hero"><div class="eyebrow">OWNER CONTROL</div><h2>👑 Панель администратора</h2><p>Доступ владельца игры. Панель встроена в HTML игры и показывается только при входе с Telegram ID владельца.</p></div>
+  <div class="admin-warning"><b>Важно:</b> эта HTML-версия не подключена к серверной базе игроков. Поэтому управление чужими аккаунтами, банами, Premium и глобальными настройками ниже не будет притворяться работающим: для реальных действий нужен сервер, который проверяет Telegram initData. Локальные данные браузера не являются общей базой игроков.</div>
+  <div class="admin-panel"><h3>🔐 Сессия владельца</h3><div class="admin-status" id="adminIdentity">Проверка Telegram…</div><div class="admin-grid"><div class="stat"><small>Монеты в этом браузере</small><strong id="adminLocalCoins">0</strong></div><div class="stat"><small>Уровень текущего профиля</small><strong id="adminLocalLevel">1</strong></div><div class="stat"><small>Всего тапов локально</small><strong id="adminLocalTaps">0</strong></div><div class="stat"><small>Улучшения локально</small><strong id="adminLocalUpgrades">0</strong></div></div></div>
+  <div class="admin-panel"><h3>🔎 Найти игрока</h3><div class="admin-field"><label for="adminPlayerId">Telegram ID игрока</label><input id="adminPlayerId" inputmode="numeric" placeholder="Например, 123456789"></div><button class="btn blue full admin-action" id="adminSearchBtn">Найти игрока</button><p class="admin-status" id="adminPlayerResult">Поиск станет доступен после подключения серверной базы.</p></div>
+  <div class="admin-panel"><h3>🪙 Управление монетами</h3><div class="admin-field"><label for="adminCoinAmount">Количество монет</label><input id="adminCoinAmount" type="number" min="0" step="1" placeholder="1000"></div><div class="admin-field"><label for="adminCoinAction">Действие</label><select id="adminCoinAction"><option value="give">Выдать</option><option value="deduct">Списать</option><option value="set">Установить баланс</option><option value="reset">Обнулить баланс</option></select></div><button class="btn gold full admin-action" id="adminCoinsBtn">Выполнить для найденного игрока</button><p class="admin-status">Операции намеренно не изменяют чужие аккаунты без серверной проверки.</p></div>
+  <div class="admin-panel"><h3>💎 Premium и предметы</h3><div class="admin-grid"><div class="admin-field"><label for="adminPremium">Premium</label><select id="adminPremium"><option>Выдать Premium</option><option>Снять Premium</option><option>Установить срок Premium</option></select></div><div class="admin-field"><label for="adminPremiumDays">Срок (дней)</label><input id="adminPremiumDays" type="number" min="1" value="30"></div></div><div class="admin-field"><label for="adminItem">Предмет / усиление</label><input id="adminItem" placeholder="Название предмета или усиления"></div><button class="btn blue full admin-action" id="adminPremiumBtn">Применить Premium / предмет</button></div>
+  <div class="admin-panel"><h3>🛡️ Безопасность игрока</h3><div class="admin-field"><label for="adminBanReason">Причина блокировки</label><input id="adminBanReason" placeholder="Причина бана"></div><div class="admin-grid"><button class="btn blue admin-action" id="adminBanBtn">Заблокировать</button><button class="btn blue admin-action" id="adminUnbanBtn">Снять бан</button></div></div>
+  <div class="admin-panel"><h3>🌍 Глобальные настройки</h3><div class="admin-field"><label for="adminAnnouncement">Сообщение всем игрокам</label><textarea id="adminAnnouncement" rows="2" placeholder="Текст объявления"></textarea></div><div class="admin-field"><label for="adminEconomy">Множитель экономики</label><input id="adminEconomy" type="number" min="0.1" max="100" step="0.1" value="1"></div><div class="admin-grid"><button class="btn blue admin-action" id="adminBroadcastBtn">Опубликовать сообщение</button><button class="btn blue admin-action" id="adminMaintenanceBtn">Переключить техработы</button></div><p class="admin-status" id="adminGlobalStatus">Объявления и техработы требуют серверной реализации.</p></div>
+  <div class="admin-panel"><h3>📜 История действий</h3><div class="admin-log" id="adminLog"><div>Панель открыта. Серверная история пока не подключена.</div></div></div>
+ </section>
+<footer class="footer">HAMSTER TAP CLUB · Демо-игра для развлечения<br>Без реальных денежных ставок, покупок и выплат.</footer>
+</div><div class="toast" id="toast"></div>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<script>
+const $=id=>document.getElementById(id);
+const initial=()=>({coins:0,energy:500,maxEnergy:500,perTap:1,passive:0,level:1,xp:0,taps:0,earned:0,upgradeCount:0,lastDaily:'',dailyStreak:0,dailyClaims:0,claimedQuests:[],taskDate:'',startedAt:Date.now(),name:'Игрок',roomName:'Мой хомячий дом',houseTier:0,roomTheme:'classic',roomThemes:['classic'],upgrades:{tap:0,auto:0,energy:0},tasks:{first:false,taps:false,upgrade:false,daily:false},skills:{power:0,focus:0,energy:0},roomItems:[],prestige:0,passClaimed:[],wheelDate:'',criticals:0,collection:[],lastItemId:null,levelMilestoneClaimed:0,chestKeys:0,chestOpens:0,rarePity:0,setRewards:[],eventDate:'',eventTaps:0,eventClaimed:false,achievementClaims:[]});
+let state=initial(),toastTimer=null,combo=0,comboTimer=null;
+const upgradeDefs=[
+{id:'tap',icon:'👆',name:'Сильный палец',desc:'+1 монета за тап на уровень',base:50,apply:()=>{state.perTap+=1}},
+{id:'auto',icon:'⚙️',name:'Автодоход',desc:'+10 монет в час на уровень',base:120,apply:()=>{state.passive+=10}},
+{id:'energy',icon:'⚡',name:'Запас энергии',desc:'+100 к максимальной энергии',base:100,apply:()=>{state.maxEnergy+=100;state.energy+=100}}
+];
+const taskDefs=(()=>{
+ const list=[];
+ const add=(icon,name,desc,reward,check,unlock=()=>true,kind='Обычное')=>list.push({id:'q'+(list.length+1),icon,name,desc,reward,check,unlock,kind});
+ const taps=[1,10,25,50,100,200,350,500,750,1000,1500,2000,3000,4500,6000,8000,10000,15000,20000,30000];
+ taps.forEach((n,i)=>add('👆',i===0?'Первое нажатие':`Марафон тапов ${i+1}`,`Сделай всего ${n.toLocaleString('ru-RU')} нажатий`,25+i*20,()=>state.taps>=n,()=>i<4||state.level>=Math.min(100,(i+1)*2),'Тапы'));
+ const coins=[100,250,500,1000,2500,5000,10000,20000,40000,75000,125000,200000,350000,500000,750000,1000000,1500000,2500000,4000000,7000000];
+ coins.forEach((n,i)=>add('🪙',`Копилка ${i+1}`,`Заработай суммарно ${n.toLocaleString('ru-RU')} монет`,35+i*30,()=>state.earned>=n,()=>i<4||state.level>=Math.min(100,(i+1)*3),'Монеты'));
+ for(let i=1;i<=20;i++)add('🚀',`Инвестор ${i}`,`Купи ${i} улучшений за всё время`,80+i*35,()=>state.upgradeCount>=i,()=>i<=2||state.level>=i*3,'Улучшения');
+ for(let i=1;i<=20;i++)add('⭐',`Путь к звёздам ${i}`,`Достигни ${i*5} уровня`,100+i*45,()=>state.level>=i*5,()=>state.level>=Math.max(1,(i-1)*5),'Уровни');
+ for(let i=1;i<=20;i++)add('🎁',`Верный игрок ${i}`,`Забери ежедневный бонус ${i} раз`,100+i*40,()=>state.dailyClaims>=i,()=>i<=2||state.level>=i*3,'Ежедневные');
+ for(let i=1;i<=20;i++)add('🔥',`Серия огня ${i}`,`Достигни серии бонусов в ${i} ${i===1?'день':'дней'}`,120+i*50,()=>state.dailyStreak>=i,()=>i<=2||state.level>=i*4,'Серия');
+ for(let i=1;i<=20;i++)add('⚡',`Энергия мастера ${i}`,`Купи улучшение запаса энергии ${i} раз`,100+i*40,()=>state.upgrades.energy>=i,()=>i<=1||state.level>=i*4,'Особое');
+ for(let i=1;i<=20;i++)add('🗓️',`Путь терпения ${i}`,`Играй не меньше ${i} разных дней после старта`,150+i*60,()=>daysPlayed()+1>=i,()=>i<=3||state.level>=i*3,'Время');
+ const sets=[
+  {icon:'🏅',title:'Испытание',kind:'Сложное',desc:n=>`Достигни ${n} уровня`,check:n=>()=>state.level>=n},
+  {icon:'💰',title:'Большая копилка',kind:'Сложное',desc:n=>`Заработай ${n.toLocaleString('ru-RU')} монет всего`,check:n=>()=>state.earned>=n},
+  {icon:'👆',title:'Тап-мастер',kind:'Испытание',desc:n=>`Сделай ${n.toLocaleString('ru-RU')} нажатий всего`,check:n=>()=>state.taps>=n},
+  {icon:'🛠️',title:'Механик',kind:'Улучшения',desc:n=>`Купи ${n} улучшений всего`,check:n=>()=>state.upgradeCount>=n}
+ ];
+ for(let i=1;i<=20;i++){const vals=[Math.min(100,10+i*4),1000*i*i,100*i*i,i*2];sets.forEach((set,j)=>add(set.icon,`${set.title} ${i}`,set.desc(vals[j]),250+i*65,set.check(vals[j]),()=>state.level>=Math.max(1,Math.min(100,Math.floor((i-1)*2.5)+1)),set.kind))}
+ return list.slice(0,200);
+})();
+const ITEM_POOL = [
+ {id:1,emoji:'🌰',name:'Жёлудь-счастливчик',rarity:'common'},
+ {id:2,emoji:'🧶',name:'Клубок ниток',rarity:'common'},
+ {id:3,emoji:'🥜',name:'Арахисовый запас',rarity:'common'},
+ {id:4,emoji:'🍓',name:'Клубничная конфета',rarity:'common'},
+ {id:5,emoji:'🧦',name:'Тёплый носочек',rarity:'common'},
+ {id:6,emoji:'🪨',name:'Гладкий камешек',rarity:'common'},
+ {id:7,emoji:'🍪',name:'Печенье-крошка',rarity:'common'},
+ {id:8,emoji:'🌼',name:'Ромашка',rarity:'common'},
+ {id:9,emoji:'🪶',name:'Пушинка',rarity:'common'},
+ {id:10,emoji:'🧸',name:'Мини-игрушка',rarity:'common'},
+ {id:11,emoji:'🥕',name:'Морковный брелок',rarity:'common'},
+ {id:12,emoji:'🫧',name:'Мыльный пузырёк',rarity:'common'},
+ {id:13,emoji:'🪵',name:'Веточка для гнезда',rarity:'common'},
+ {id:14,emoji:'🍯',name:'Капля мёда',rarity:'common'},
+ {id:15,emoji:'🌰',name:'Ореховая шапочка',rarity:'common'},
+ {id:16,emoji:'🧵',name:'Катушка ниток',rarity:'common'},
+ {id:17,emoji:'🪴',name:'Росток в горшке',rarity:'common'},
+ {id:18,emoji:'🪙',name:'Монетка на удачу',rarity:'common'},
+ {id:19,emoji:'🧁',name:'Кексик',rarity:'common'},
+ {id:20,emoji:'🧻',name:'Бумажный тоннель',rarity:'common'},
+ {id:21,emoji:'🍇',name:'Виноградинка',rarity:'common'},
+ {id:22,emoji:'🍎',name:'Яблочный ломтик',rarity:'common'},
+ {id:23,emoji:'🐚',name:'Маленькая ракушка',rarity:'common'},
+ {id:24,emoji:'🪺',name:'Соломенное гнёздышко',rarity:'common'},
+ {id:25,emoji:'🎀',name:'Ленточка',rarity:'common'},
+ {id:26,emoji:'🧼',name:'Мыльце',rarity:'common'},
+ {id:27,emoji:'🪥',name:'Крошечная щётка',rarity:'common'},
+ {id:28,emoji:'🍃',name:'Зелёный листик',rarity:'common'},
+ {id:29,emoji:'🪁',name:'Бумажный змей',rarity:'common'},
+ {id:30,emoji:'🧩',name:'Пазл-крошка',rarity:'common'},
+ {id:31,emoji:'🛏️',name:'Мягкая подушечка',rarity:'common'},
+ {id:32,emoji:'🥛',name:'Чашечка молока',rarity:'common'},
+ {id:33,emoji:'🍬',name:'Леденец',rarity:'common'},
+ {id:34,emoji:'🧺',name:'Корзинка',rarity:'common'},
+ {id:35,emoji:'🧤',name:'Мини-варежка',rarity:'common'},
+ {id:36,emoji:'🪡',name:'Золотая иголка',rarity:'common'},
+ {id:37,emoji:'🪄',name:'Игрушечная палочка',rarity:'common'},
+ {id:38,emoji:'🧃',name:'Сок в коробочке',rarity:'common'},
+ {id:39,emoji:'🌱',name:'Семечко надежды',rarity:'common'},
+ {id:40,emoji:'📎',name:'Скрепка-качели',rarity:'common'},
+ {id:41,emoji:'🕶️',name:'Очки модника',rarity:'uncommon'},
+ {id:42,emoji:'🎧',name:'Наушники диджея',rarity:'uncommon'},
+ {id:43,emoji:'🧢',name:'Кепка скейтера',rarity:'uncommon'},
+ {id:44,emoji:'🛹',name:'Мини-скейт',rarity:'uncommon'},
+ {id:45,emoji:'🎨',name:'Палитра художника',rarity:'uncommon'},
+ {id:46,emoji:'🧋',name:'Бабл-ти',rarity:'uncommon'},
+ {id:47,emoji:'🧸',name:'Плюшевый друг',rarity:'uncommon'},
+ {id:48,emoji:'🪇',name:'Маракас',rarity:'uncommon'},
+ {id:49,emoji:'🎒',name:'Крошечный рюкзак',rarity:'uncommon'},
+ {id:50,emoji:'🪴',name:'Кактус-охранник',rarity:'uncommon'},
+ {id:51,emoji:'🧁',name:'Кекс с глазурью',rarity:'uncommon'},
+ {id:52,emoji:'🪭',name:'Веер феи',rarity:'uncommon'},
+ {id:53,emoji:'🧣',name:'Шарфик в полоску',rarity:'uncommon'},
+ {id:54,emoji:'📚',name:'Книга секретов',rarity:'uncommon'},
+ {id:55,emoji:'🪙',name:'Счастливая монета',rarity:'uncommon'},
+ {id:56,emoji:'🧭',name:'Компас искателя',rarity:'uncommon'},
+ {id:57,emoji:'🎯',name:'Мини-мишень',rarity:'uncommon'},
+ {id:58,emoji:'🛼',name:'Ролики',rarity:'uncommon'},
+ {id:59,emoji:'🪇',name:'Ритм-бубенчик',rarity:'uncommon'},
+ {id:60,emoji:'🧿',name:'Глаз-оберег',rarity:'uncommon'},
+ {id:61,emoji:'🍀',name:'Четырёхлистник',rarity:'uncommon'},
+ {id:62,emoji:'🪺',name:'Уютное гнездо',rarity:'uncommon'},
+ {id:63,emoji:'🪄',name:'Фокус-палочка',rarity:'uncommon'},
+ {id:64,emoji:'🪞',name:'Карманное зеркало',rarity:'uncommon'},
+ {id:65,emoji:'🧵',name:'Радужная пряжа',rarity:'uncommon'},
+ {id:66,emoji:'💎',name:'Аквамариновый кристалл',rarity:'rare'},
+ {id:67,emoji:'🪽',name:'Крылышко мечты',rarity:'rare'},
+ {id:68,emoji:'🪬',name:'Амулет хранителя',rarity:'rare'},
+ {id:69,emoji:'🌙',name:'Лунный кулон',rarity:'rare'},
+ {id:70,emoji:'🧪',name:'Эликсир бодрости',rarity:'rare'},
+ {id:71,emoji:'🪷',name:'Цветок лотоса',rarity:'rare'},
+ {id:72,emoji:'🦋',name:'Бабочка-сапфир',rarity:'rare'},
+ {id:73,emoji:'🧿',name:'Око удачи',rarity:'rare'},
+ {id:74,emoji:'🎐',name:'Колокольчик ветра',rarity:'rare'},
+ {id:75,emoji:'🗝️',name:'Ключ от тайной комнаты',rarity:'rare'},
+ {id:76,emoji:'🪄',name:'Посох фокусника',rarity:'rare'},
+ {id:77,emoji:'🧸',name:'Медведь-талисман',rarity:'rare'},
+ {id:78,emoji:'🌈',name:'Радужная призма',rarity:'rare'},
+ {id:79,emoji:'🪙',name:'Серебряный жетон',rarity:'rare'},
+ {id:80,emoji:'🧊',name:'Ледяное сердце',rarity:'rare'},
+ {id:81,emoji:'🪶',name:'Перо феникса',rarity:'rare'},
+ {id:82,emoji:'🧬',name:'Капсула эволюции',rarity:'rare'},
+ {id:83,emoji:'🔮',name:'Шар предсказаний',rarity:'rare'},
+ {id:84,emoji:'👑',name:'Корона сахарного короля',rarity:'epic'},
+ {id:85,emoji:'🦄',name:'Рог единорога',rarity:'epic'},
+ {id:86,emoji:'🌌',name:'Баночка космоса',rarity:'epic'},
+ {id:87,emoji:'⚡',name:'Молния в бутылке',rarity:'epic'},
+ {id:88,emoji:'💫',name:'Звёздный компас',rarity:'epic'},
+ {id:89,emoji:'🛡️',name:'Щит хранителя',rarity:'epic'},
+ {id:90,emoji:'🪐',name:'Карманная планета',rarity:'epic'},
+ {id:91,emoji:'🧚',name:'Пыльца феи',rarity:'epic'},
+ {id:92,emoji:'🐉',name:'Драконье яйцо',rarity:'epic'},
+ {id:93,emoji:'🎭',name:'Маска теней',rarity:'epic'},
+ {id:94,emoji:'💠',name:'Сердце кристального леса',rarity:'legendary'},
+ {id:95,emoji:'🌠',name:'Осколок падающей звезды',rarity:'legendary'},
+ {id:96,emoji:'🪽',name:'Крыло созвездия',rarity:'legendary'},
+ {id:97,emoji:'🔥',name:'Пламя вечного огня',rarity:'legendary'},
+ {id:98,emoji:'🪄',name:'Жезл Миланы',rarity:'legendary'},
+ {id:99,emoji:'🌟',name:'Первая звезда Миланы',rarity:'mythic'},
+ {id:100,emoji:'🐹',name:'Золотой хомяк-дух',rarity:'mythic'}
+];
+const RARITY_LABEL={common:"Обычный",uncommon:"Необычный",rare:"Редкий",epic:"Эпический",legendary:"Легендарный",mythic:"Мифический"};
+const RARITY_WEIGHT={common:55,uncommon:25,rare:12,epic:6,legendary:1.7,mythic:0.3};
+const RARITY_DUPLICATE_COINS={common:100,uncommon:250,rare:700,epic:2000,legendary:10000,mythic:50000};
+function today(){const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
+function yesterday(){const d=new Date();d.setDate(d.getDate()-1);return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
+function refreshDailyTasks(){if(state.taskDate!==today()){state.taskDate=today();state.tasks={first:false,taps:false,upgrade:false,daily:false};save()}}
+function dailyReward(){return 200+Math.min(Math.max((state.dailyStreak||0)-1,0),7)*50}
+const petStages=[
+ {min:1,name:'Малыш-зёрнышко',emoji:'🐹',light:'#fff0bd',mid:'#e7b66c',dark:'#b8763f',ear:'#c58a4b',inner:'#f4b9b1',scale:.78},
+ {min:5,name:'Золотой исследователь',emoji:'🐹',light:'#fff3c8',mid:'#e8b45b',dark:'#b66b2d',ear:'#c58a4b',inner:'#f4b9b1',scale:.84},
+ {min:10,name:'Серебряный спринтер',emoji:'🐹',light:'#fff',mid:'#aeb8c7',dark:'#667386',ear:'#8492a5',inner:'#e6aeb7',scale:.90},
+ {min:15,name:'Лунный хомяк',emoji:'🌙',light:'#e4f5ff',mid:'#8fc9e9',dark:'#376a9e',ear:'#6ca4ca',inner:'#f3b7d2',scale:.94},
+ {min:20,name:'VIP-хомяк',emoji:'👑',light:'#fff0bf',mid:'#4b5265',dark:'#151b2b',ear:'#282f43',inner:'#d8a1ad',scale:.98},
+ {min:25,name:'Рубиновый чемпион',emoji:'💎',light:'#ffd5e4',mid:'#e84b78',dark:'#842449',ear:'#b52e5a',inner:'#ffd0df',scale:1.02},
+ {min:30,name:'Изумрудный хранитель',emoji:'🍀',light:'#c8ffe2',mid:'#43c991',dark:'#176b50',ear:'#258963',inner:'#f0b8d4',scale:1.06},
+ {min:35,name:'Солнечный король',emoji:'☀️',light:'#fff5ad',mid:'#ffb52e',dark:'#b95a19',ear:'#d78320',inner:'#ffb8a6',scale:1.10},
+ {min:40,name:'Ледяной дух',emoji:'❄️',light:'#f3ffff',mid:'#8bdfff',dark:'#3973ae',ear:'#5b9cc7',inner:'#ffc4dd',scale:1.14},
+ {min:45,name:'Теневой ниндзя',emoji:'🥷',light:'#858ba7',mid:'#3d435b',dark:'#111522',ear:'#252b3e',inner:'#a56b8c',scale:1.18},
+ {min:50,name:'Галактический странник',emoji:'🌌',light:'#e5d4ff',mid:'#8956d9',dark:'#3e236d',ear:'#6840a4',inner:'#e6a0e4',scale:1.22},
+ {min:55,name:'Драконий хомяк',emoji:'🐲',light:'#c5ffd4',mid:'#45b96d',dark:'#17623a',ear:'#247c45',inner:'#f1a6a6',scale:1.26},
+ {min:60,name:'Неоновый рейвер',emoji:'💜',light:'#ffd6ff',mid:'#e45bff',dark:'#6e1a9a',ear:'#9a34bd',inner:'#ffd1f4',scale:1.30},
+ {min:65,name:'Кибер-хомяк',emoji:'🤖',light:'#c9ffff',mid:'#35c8d0',dark:'#176a83',ear:'#228c9d',inner:'#f1b6d9',scale:1.34},
+ {min:70,name:'Огненный феникс',emoji:'🔥',light:'#fff1b0',mid:'#ff793b',dark:'#a82a27',ear:'#c84a31',inner:'#ffd0b4',scale:1.38},
+ {min:75,name:'Королевский космос',emoji:'👑',light:'#fff2cb',mid:'#c7a0ff',dark:'#6942b0',ear:'#8a62c9',inner:'#f6b7db',scale:1.42},
+ {min:80,name:'Звёздный титан',emoji:'⭐',light:'#fff',mid:'#91b7ff',dark:'#4059a8',ear:'#607ed0',inner:'#ffc3e3',scale:1.46},
+ {min:85,name:'Древний хранитель',emoji:'🔮',light:'#e6e0ff',mid:'#8668b9',dark:'#3a245f',ear:'#63448c',inner:'#dba7e8',scale:1.50},
+ {min:90,name:'Абсолютный чемпион',emoji:'🏆',light:'#fff3b0',mid:'#f2c14e',dark:'#8f4a18',ear:'#b7782b',inner:'#ffd1dd',scale:1.55},
+ {min:95,name:'Милана — легенда',emoji:'💫',light:'#fff',mid:'#d28cff',dark:'#5427a5',ear:'#8c4fd1',inner:'#ffbdf2',scale:1.62}
+];
+function getHamsterStage(level){
+ const known=[...petStages].reverse().find(x=>level>=x.min);
+ if(level<100)return known||petStages[0];
+ const milestone=Math.floor(level/5), hue=(milestone*47)%360;
+ const colors=[`hsl(${hue} 90% 88%)`,`hsl(${hue} 75% 62%)`,`hsl(${hue} 65% 32%)`,`hsl(${(hue+25)%360} 60% 48%)`,`hsl(${(hue+40)%360} 85% 88%)`];
+ const names=['Галактический','Кристальный','Теневой','Плазменный','Космический','Рубиновый','Лунный','Кибер','Золотой','Мифический'];
+ const emojis=['🌌','💎','🌑','⚡','🚀','❤️‍🔥','🌙','🤖','👑','✨'];
+ return {min:milestone*5,name:names[milestone%names.length]+' хомяк №'+milestone,emoji:emojis[milestone%emojis.length],light:colors[0],mid:colors[1],dark:colors[2],ear:colors[3],inner:colors[4],scale:Math.min(1.8,1.55+milestone*.003)};
+}
+function updatePetAppearance(){
+ const stage=getHamsterStage(state.level);
+ $('petStage').textContent=stage.name;
+ $('furLight').setAttribute('stop-color',stage.light);$('furMid').setAttribute('stop-color',stage.mid);$('furDark').setAttribute('stop-color',stage.dark);
+ $('earLeft').setAttribute('fill',stage.ear);$('earRight').setAttribute('fill',stage.ear);
+ $('innerEarLeft').setAttribute('fill',stage.inner);$('innerEarRight').setAttribute('fill',stage.inner);
+ $('tapPet').style.transform=`scale(${stage.scale})`;
+ $('tapPet').style.filter=state.level%5===0?'drop-shadow(0 0 16px '+stage.mid+')':'drop-shadow(0 8px 12px #0005)';
+ const milestone=Math.floor(state.level/5),bonus=milestone*5;
+ if($('petStageDetail'))$('petStageDetail').textContent=`Хомяк №${milestone+1} · привилегия: +${bonus}% к тапам`;
+}
+
+function fmt(n){return Math.floor(n).toLocaleString('ru-RU')}
+function xpForLevel(level){const n=Math.max(0,level-1);return Math.floor((80*n+18*Math.pow(n,2)+2.2*Math.pow(n,2.35))*3)}
+function levelFromXP(xp){let lo=1,hi=2;while(xpForLevel(hi)<=xp&&hi<1000000000)hi*=2;while(lo<hi){const mid=Math.floor((lo+hi)/2);if(xpForLevel(mid)<=xp)lo=mid+1;else hi=mid}return Math.max(1,lo-1)}
+function daysPlayed(){return Math.max(0,Math.floor((Date.now()-(state.startedAt||Date.now()))/86400000))}
+function levelCapByTime(){return Infinity}
+function refreshLevel(){const old=state.level||1;state.level=levelFromXP(state.xp);if(state.level>old){const oldMilestone=Math.floor(old/5),newMilestone=Math.floor(state.level/5);if(newMilestone>oldMilestone)notify('НОВЫЙ ХОМЯК И ПРИВИЛЕГИЯ! 🐹 Уровень '+(newMilestone*5));else notify('Новый уровень! ⭐ Уровень '+state.level);const from=Math.floor(old/10)+1,to=Math.floor(state.level/10);for(let m=from;m<=to;m++)if(m>(state.levelMilestoneClaimed||0)){awardCollectionItem(m*10);state.chestKeys=(state.chestKeys||0)+1;state.levelMilestoneClaimed=m;notify('🎁 Награда за '+(m*10)+' уровень: предмет и ключ от сундука!')}}}
+let cloudSaveTimer=null;
+function save(){try{localStorage.setItem('milanaTapClubSave',JSON.stringify(state))}catch(e){};try{if(cloudSaveTimer)clearTimeout(cloudSaveTimer);cloudSaveTimer=setTimeout(()=>syncPlayerState(),1200)}catch(e){}}
+function gameApiUrl(path){return 'https://hamster-tap-server.onrender.com'+path}
+function telegramInitData(){return window.Telegram?.WebApp?.initData||''}
+async function gameApi(path,method='GET',body=null){const initData=telegramInitData();const headers={'Content-Type':'application/json'};if(initData)headers['X-Telegram-Init-Data']=initData;const response=await fetch(gameApiUrl(path),{method,headers,body:body===null?undefined:JSON.stringify(body)});const data=await response.json().catch(()=>({error:'Ответ сервера не JSON'}));if(!response.ok)throw new Error(data.error||('Ошибка сервера '+response.status));return data}
+async function syncPlayerState(){try{if(!telegramInitData())return;await gameApi('/api/player/sync','POST',{state:{coins:state.coins,earned:state.earned,level:state.level,xp:state.xp,taps:state.taps,upgradeCount:state.upgradeCount,upgrades:state.upgrades,prestige:state.prestige,energy:state.energy,maxEnergy:state.maxEnergy}})}catch(e){console.warn('Сохранение на сервер не выполнено:',e.message)}}
+function load(){try{const raw=localStorage.getItem('milanaTapClubSave');if(raw){const d=JSON.parse(raw);state={...initial(),...d,claimedQuests:d.claimedQuests||[],dailyClaims:d.dailyClaims||0,startedAt:d.startedAt||Date.now(),upgrades:{...initial().upgrades,...d.upgrades},tasks:{...initial().tasks,...d.tasks},skills:{...initial().skills,...d.skills},roomItems:d.roomItems||[],roomName:d.roomName||'Мой хомячий дом',houseTier:Math.max(0,Number(d.houseTier)||0),roomTheme:d.roomTheme||'classic',roomThemes:d.roomThemes||['classic'],prestige:d.prestige||0,passClaimed:d.passClaimed||[],criticals:d.criticals||0,collection:d.collection||[],lastItemId:d.lastItemId||null,levelMilestoneClaimed:d.levelMilestoneClaimed||0,chestKeys:d.chestKeys||0,chestOpens:d.chestOpens||0,rarePity:d.rarePity||0,setRewards:d.setRewards||[],eventDate:d.eventDate||'',eventTaps:d.eventTaps||0,eventClaimed:!!d.eventClaimed,achievementClaims:d.achievementClaims||[]}}}catch(e){state=initial()}}
+function notify(t){$('toast').textContent=t;$('toast').style.display='block';clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('toast').style.display='none',1800)}
+function gain(n,awardXp=false){n=Math.max(0,n*(1+(state.prestige||0)*.2));state.coins+=n;state.earned+=n;if(awardXp&&n>0)state.xp+=Math.max(1,Math.floor(n/5)*(1+(state.skills?.focus||0)+completedSets().filter(x=>(state.setRewards||[]).includes(x.id)&&(x.id==='magic'||x.id==='ocean')).reduce((a,x)=>a+x.bonus,0)));refreshLevel()}
+function renderUpgrades(){const root=$('upgradeList');root.replaceChildren();upgradeDefs.forEach(d=>{const lvl=state.upgrades[d.id],cost=Math.floor(d.base*Math.pow(1.65,lvl));const row=document.createElement('div');row.className='upgrade';const ico=document.createElement('div');ico.className='upgrade-icon';ico.textContent=d.icon;const main=document.createElement('div');main.className='upgrade-main';const b=document.createElement('b');b.textContent=d.name+' · ур. '+lvl;const sm=document.createElement('small');sm.textContent=d.desc;main.append(b,sm);const btn=document.createElement('button');btn.className='btn '+(state.coins>=cost?'gold':'blue');btn.textContent='🪙 '+fmt(cost);btn.disabled=state.coins<cost;btn.addEventListener('click',()=>buy(d.id));row.append(ico,main,btn);root.append(row)})}
+function buy(id){const d=upgradeDefs.find(x=>x.id===id);if(!d)return;const cost=Math.floor(d.base*Math.pow(1.65,state.upgrades[id]));if(state.coins<cost){notify('Не хватает монет');return}state.coins-=cost;state.upgrades[id]++;state.upgradeCount++;d.apply();render();notify('Улучшение куплено! 🚀');save()}
+function renderTasks(){
+ refreshDailyTasks();
+ const root=$('taskList');root.replaceChildren();
+ const claimed=new Set(state.claimedQuests||[]);
+ const visible=taskDefs.filter(t=>t.unlock()).slice(0,Math.min(taskDefs.length,Math.max(8,Math.floor(state.level/2)+8)));
+ const ready=visible.filter(t=>!claimed.has(t.id)&&t.check()).length;
+ $('taskCount').textContent=claimed.size+'/200 · '+ready+' готовы';
+ visible.forEach(t=>{
+  const done=claimed.has(t.id),complete=t.check();
+  const row=document.createElement('div');row.className='task';
+  const icon=document.createElement('div');icon.className='task-icon';icon.textContent=t.icon;
+  const main=document.createElement('div');main.className='task-main';
+  const title=document.createElement('b');title.textContent=t.name;
+  const desc=document.createElement('small');desc.textContent=t.desc+' · Награда '+t.reward+' 🪙';
+  const tag=document.createElement('span');tag.className='task-tag';tag.textContent=t.kind+(complete?' · Цель выполнена':' · В процессе');
+  main.append(title,desc,tag);
+  const btn=document.createElement('button');btn.className='btn '+(done?'blue':'gold');btn.textContent=done?'✓ Получено':complete?'Забрать':'В процессе';btn.disabled=done||!complete;
+  btn.addEventListener('click',()=>{if(done||!t.check())return;state.claimedQuests=Array.from(new Set([...(state.claimedQuests||[]),t.id]));gain(t.reward);render();notify('Задание выполнено: +'+t.reward+' 🪙');save()});
+  row.append(icon,main,btn);root.append(row);
+ });
+ if(visible.length<taskDefs.length){const note=document.createElement('p');note.className='muted';note.textContent=`Ещё ${taskDefs.length-visible.length} заданий закрыты. Повышай уровень, чтобы открыть следующие испытания.`;root.append(note)}
+}
+function renderEvolution(){
+ const root=$('evolutionGrid');if(!root)return;root.replaceChildren();
+ const currentMilestone=Math.floor(state.level/5),last=Math.max(19,currentMilestone+5);
+ for(let i=0;i<=last;i++){
+  const level=i===0?1:i*5,stage=getHamsterStage(level),unlocked=state.level>=level;
+  const card=document.createElement('div');card.className='evo-card'+(unlocked?'':' locked');
+  const avatar=document.createElement('div');avatar.className='evo-avatar';avatar.textContent=stage.emoji;avatar.style.background=`radial-gradient(circle,${stage.mid}99,#17243b)`;if(unlocked)avatar.style.boxShadow=`0 0 15px ${stage.mid}55`;
+  const info=document.createElement('div');const title=document.createElement('b');title.textContent=`${level} ур. · ${stage.name}`;
+  const sub=document.createElement('small');sub.textContent=unlocked?`✓ Открыт · +${Math.floor(level/5)*5}% к тапам`:`🔒 Откроется на уровне ${level}`;
+  info.append(title,sub);card.append(avatar,info);root.append(card);
+ }
+}
+function chooseWeightedItem(){
+ const owned=new Set((state.collection||[]).map(x=>x.id));
+ let roll=Math.random()*100,total=0,rarity='common';
+ for(const [r,w] of Object.entries(RARITY_WEIGHT)){total+=w;if(roll<total){rarity=r;break}}
+ let candidates=ITEM_POOL.filter(x=>x.rarity===rarity&&!owned.has(x.id));
+ if(!candidates.length)candidates=ITEM_POOL.filter(x=>!owned.has(x.id));
+ if(!candidates.length)return ITEM_POOL[Math.floor(Math.random()*ITEM_POOL.length)];
+ return candidates[Math.floor(Math.random()*candidates.length)];
+}
+function awardCollectionItem(level){
+ const item=chooseWeightedItem();const existing=(state.collection||[]).find(x=>x.id===item.id);
+ if(existing){const reward=RARITY_DUPLICATE_COINS[item.rarity]||100;gain(reward,false);state.lastItemId=item.id;notify(`Дубликат: ${item.emoji} ${item.name} · +${fmt(reward)} монет`);}
+ else{state.collection.push({id:item.id,level,obtainedAt:Date.now()});state.lastItemId=item.id;notify(`🎁 Предмет за ${level} уровень: ${item.emoji} ${item.name} · ${RARITY_LABEL[item.rarity]}!`)}
+}
+const COLLECTION_SETS=[
+ {id:'cozy',name:'Уютный уголок',from:1,to:10,emoji:'🧸',hamster:'Хомяк-домосед',perk:'+5% к доходу за тап',bonus:.05},
+ {id:'garden',name:'Сад чудес',from:11,to:20,emoji:'🌿',hamster:'Хомяк-садовник',perk:'+5% к монетам за тап',bonus:.05},
+ {id:'magic',name:'Школа магии',from:21,to:30,emoji:'🪄',hamster:'Хомяк-чародей',perk:'+10% к опыту за тап',bonus:.10},
+ {id:'space',name:'Космическая экспедиция',from:31,to:40,emoji:'🚀',hamster:'Хомяк-космонавт',perk:'+10% к доходу за тап',bonus:.10},
+ {id:'royal',name:'Королевская коллекция',from:41,to:50,emoji:'👑',hamster:'Золотой король хомяков',perk:'+15% к доходу за тап',bonus:.15},
+ {id:'mystic',name:'Тайны древних',from:51,to:60,emoji:'🔮',hamster:'Мифический хранитель',perk:'+15% к монетам за тап',bonus:.15},
+ {id:'ocean',name:'Глубины океана',from:61,to:70,emoji:'🌊',hamster:'Хомяк-левиафан',perk:'+10% к опыту за тап',bonus:.10},
+ {id:'festival',name:'Фестиваль света',from:71,to:80,emoji:'🎆',hamster:'Хомяк-фейерверк',perk:'+20% к доходу за тап',bonus:.20},
+ {id:'legend',name:'Легенды Миланы',from:81,to:90,emoji:'🌠',hamster:'Хомяк-звездочёт',perk:'+20% к доходу за тап',bonus:.20},
+ {id:'myth',name:'Мифическое наследие',from:91,to:100,emoji:'🐉',hamster:'Драконий дух Миланы',perk:'+25% к доходу за тап',bonus:.25}
+];
+function ownedIds(){return new Set((state.collection||[]).map(x=>x.id))}
+function completedSets(){const ids=ownedIds();return COLLECTION_SETS.filter(set=>{for(let i=set.from;i<=set.to;i++)if(!ids.has(i))return false;return true})}
+function collectionBonus(){const claimed=new Set(state.setRewards||[]);return completedSets().filter(set=>claimed.has(set.id)&&!['magic','ocean'].includes(set.id)).reduce((sum,set)=>sum+set.bonus,0)}
+function openChest(){if((state.chestKeys||0)<1){notify('Нет ключей. Достигни следующего уровня, кратного 10!');return}state.chestKeys--;state.chestOpens=(state.chestOpens||0)+1;state.rarePity=(state.rarePity||0)+1;const owned=ownedIds();let item;
+ if(state.rarePity>=10)item=ITEM_POOL.filter(x=>['rare','epic','legendary','mythic'].includes(x.rarity)&&!owned.has(x.id)).sort((a,b)=>['rare','epic','legendary','mythic'].indexOf(a.rarity)-['rare','epic','legendary','mythic'].indexOf(b.rarity))[0];
+ if(!item)item=chooseWeightedItem();if(!item){gain(500,false);notify('Коллекция завершена! +500 монет');}else{const exists=(state.collection||[]).some(x=>x.id===item.id);if(exists){const reward=RARITY_DUPLICATE_COINS[item.rarity]||100;gain(reward,false);state.lastItemId=item.id;notify('Дубликат из сундука: '+item.name+' · +'+fmt(reward)+' монет')}else{state.collection.push({id:item.id,level:state.level,obtainedAt:Date.now(),source:'chest'});state.lastItemId=item.id;notify('Сундук: '+item.emoji+' '+item.name+' · '+RARITY_LABEL[item.rarity]+'!')}if(['rare','epic','legendary','mythic'].includes(item.rarity))state.rarePity=0;else if(state.rarePity>=10)state.rarePity=0;}
+ render();save();}
+function dailyEventRefresh(){if(state.eventDate!==today()){state.eventDate=today();state.eventTaps=0;state.eventClaimed=false}}
+const ACHIEVEMENTS=[
+ {id:'tap100',name:'Пальчик разогрет',emoji:'👆',desc:'Сделай 100 тапов',check:()=>state.taps>=100,reward:500},
+ {id:'tap1000',name:'Мастер кликов',emoji:'🔥',desc:'Сделай 1 000 тапов',check:()=>state.taps>=1000,reward:2500},
+ {id:'rare1',name:'Охотник за редкостями',emoji:'💎',desc:'Собери 1 редкий или более ценный предмет',check:()=>ITEM_POOL.some(x=>ownedIds().has(x.id)&&['rare','epic','legendary','mythic'].includes(x.rarity)),reward:1000},
+ {id:'set1',name:'Собиратель наборов',emoji:'🧩',desc:'Заверши первый набор',check:()=>completedSets().length>=1,reward:5000},
+ {id:'level100',name:'Сотый рубеж',emoji:'🏆',desc:'Достигни 100 уровня',check:()=>state.level>=100,reward:10000},
+ {id:'prestige1',name:'Новая эпоха',emoji:'♻️',desc:'Переродись хотя бы один раз',check:()=>state.prestige>=1,reward:15000}
+];
+function renderSets(){const root=$('setGrid');if(!root)return;root.replaceChildren();const ids=ownedIds(),claims=new Set(state.setRewards||[]);COLLECTION_SETS.forEach(set=>{let count=0;for(let i=set.from;i<=set.to;i++)if(ids.has(i))count++;const complete=count===10,claimed=claims.has(set.id);const card=document.createElement('div');card.className='feature-card';const title=document.createElement('h3');title.textContent=set.emoji+' '+set.name;const desc=document.createElement('p');desc.textContent=`${count}/10 предметов · Награда: ${set.hamster} · ${set.perk}`;const bar=document.createElement('div');bar.className='progress-track';const fill=document.createElement('div');fill.style.width=(count*10)+'%';bar.append(fill);const btn=document.createElement('button');btn.className='btn '+(claimed?'blue':'gold')+' full';btn.textContent=claimed?'✓ Набор получен':complete?'Забрать эксклюзивного хомяка':'Собирай предметы';btn.disabled=!complete||claimed;btn.onclick=()=>{if(!complete||claimed)return;state.setRewards.push(set.id);render();save();notify('Открыт '+set.hamster+'! '+set.perk)};card.append(title,desc,bar,btn);root.append(card)})}
+function renderAchievements(){const root=$('achievementList');if(!root)return;root.innerHTML='';const claims=new Set(state.achievementClaims||[]);ACHIEVEMENTS.forEach(a=>{const done=a.check(),claimed=claims.has(a.id);const row=document.createElement('div');row.className='upgrade';const ico=document.createElement('div');ico.className='upgrade-icon';ico.textContent=a.emoji;const main=document.createElement('div');main.className='upgrade-main';main.innerHTML='<b>'+a.name+'</b><small>'+a.desc+' · '+a.reward+' 🪙</small>';const btn=document.createElement('button');btn.className='btn '+(claimed?'blue':'gold');btn.textContent=claimed?'Получено':done?'Забрать':'В процессе';btn.disabled=claimed||!done;btn.onclick=()=>{state.achievementClaims.push(a.id);gain(a.reward,false);render();save();notify('Достижение: '+a.name+' · +'+a.reward+' монет')};row.append(ico,main,btn);root.append(row)})}
+function renderDailyEvent(){dailyEventRefresh();const target=100;const done=state.eventTaps>=target;const desc=$('dailyEventDesc');if(desc)desc.textContent='Событие дня: сделай 100 тапов сегодня и получи 1 500 монет + ключ от сундука.';$('dailyEventProgress').textContent=Math.min(state.eventTaps,target)+' / '+target+' тапов';$('dailyEventFill').style.width=Math.min(100,state.eventTaps/target*100)+'%';$('dailyEventBtn').disabled=!done||state.eventClaimed;$('dailyEventBtn').textContent=state.eventClaimed?'✓ Получено':done?'Забрать награду':'Продолжай тапать';}
+function renderCollection(){
+ const root=$('collectionGrid');if(!root)return;root.replaceChildren();const owned=new Map((state.collection||[]).map(x=>[x.id,x]));
+ $('collectionCount').textContent=owned.size+' / 100';$('rareCount').textContent=ITEM_POOL.filter(x=>owned.has(x.id)&&['rare','epic','legendary','mythic'].includes(x.rarity)).length;$('chestKeys').textContent=state.chestKeys||0;$('chestOpens').textContent=state.chestOpens||0;$('pityText').textContent=Math.min(state.rarePity||0,10)+' / 10';$('chestBtn').disabled=(state.chestKeys||0)<1;$('chestBtn').textContent=(state.chestKeys||0)>0?'🗝️ Открыть сундук · ключей '+state.chestKeys:'🔒 Нужен ключ · каждые 10 уровней';
+ $('nextItemLevel').textContent=(Math.floor(state.level/10)+1)*10+' ур.';
+ const last=ITEM_POOL.find(x=>x.id===state.lastItemId);$('lastItem').textContent=last?`${last.emoji} ${last.name} · ${RARITY_LABEL[last.rarity]} · найден на ${owned.get(last.id)?.level||'—'} уровне.`:'Достигни 10-го уровня, чтобы открыть первый предмет.';
+ renderSets();ITEM_POOL.forEach(item=>{const got=owned.has(item.id),entry=owned.get(item.id);const card=document.createElement('div');card.className='evo-card '+(got?'rarity-'+item.rarity:'locked');const avatar=document.createElement('div');avatar.className='evo-avatar';avatar.textContent=got?item.emoji:'❔';avatar.style.background='radial-gradient(circle,#344765,#17243b)';const info=document.createElement('div');const title=document.createElement('b');title.textContent=got?item.name:'Неизвестный предмет';const sub=document.createElement('small');sub.textContent=got?`${RARITY_LABEL[item.rarity]} · найден на ${entry.level} уровне`:`${RARITY_LABEL[item.rarity]} · ещё не найден`;info.append(title,sub);card.append(avatar,info);root.append(card)})
+}
+const HOUSE_TIERS=[
+ {name:'Соломенное гнездо',emoji:'🪹',cost:0,desc:'Первый скромный домик для хомяка.',theme:'classic'},
+ {name:'Деревянная хижина',emoji:'🛖',cost:5000,desc:'Настоящий дом с крепкими стенами.',theme:'classic'},
+ {name:'Уютный коттедж',emoji:'🏡',cost:50000,desc:'Больше места для мебели и коллекции.',theme:'pastel'},
+ {name:'Большая вилла',emoji:'🏠',cost:500000,desc:'Просторное жильё для богатого тапера.',theme:'forest'},
+ {name:'Особняк',emoji:'🏛️',cost:5000000,desc:'Роскошный дом с большим залом.',theme:'royal'},
+ {name:'Золотой дворец',emoji:'🏰',cost:50000000,desc:'Королевская резиденция с золотым декором.',theme:'royal'},
+ {name:'Небесный замок',emoji:'☁️',cost:500000000,desc:'Замок высоко над облаками.',theme:'space'},
+ {name:'Лунная база',emoji:'🌙',cost:5000000000,desc:'Дом на поверхности далёкой луны.',theme:'space'},
+ {name:'Галактический мегадом',emoji:'🪐',cost:50000000000,desc:'Целый комплекс среди звёзд.',theme:'space'},
+ {name:'Измерение хомяков',emoji:'✨',cost:500000000000,desc:'Легендарная территория за пределами обычного мира.',theme:'royal'}
+];
+function renderRoom(){
+ const scene=$('roomScene');if(!scene)return;
+ state.houseTier=Math.max(0,Math.min(HOUSE_TIERS.length-1,Number(state.houseTier)||0));
+ const house=HOUSE_TIERS[state.houseTier];
+ const houseList=$('houseUpgradeList');
+ if(houseList){
+  houseList.innerHTML='';
+  HOUSE_TIERS.forEach((h,i)=>{
+   const owned=i<=state.houseTier, next=i===state.houseTier+1, current=i===state.houseTier;
+   const card=document.createElement('div');card.className='house-progress'+(current?' current':'');
+   const tag=document.createElement('span');tag.className='house-tag';tag.textContent=current?'ТВОЙ ТЕКУЩИЙ ДОМ':owned?'УЖЕ ПОСТРОЕН':next?'СЛЕДУЮЩАЯ ЦЕЛЬ':'ЗАКРЫТО';
+   const title=document.createElement('b');title.textContent=h.emoji+' '+(i+1)+'. '+h.name;
+   const desc=document.createElement('small');desc.textContent=h.desc+(i===0?'':' · Цена: '+fmt(h.cost)+' монет');
+   card.append(tag,title,desc);
+   const btn=document.createElement('button');btn.className='btn '+(current?'blue':'gold');
+   btn.textContent=current?'✓ Текущий дом':owned?'✓ Построен':next?'Построить за '+fmt(h.cost)+' 🪙':'🔒 Сначала построй предыдущий дом';
+   btn.disabled=!next||state.coins<h.cost;
+   btn.onclick=()=>{if(!next||state.coins<h.cost)return;state.coins-=h.cost;state.houseTier=i;state.roomTheme=h.theme;if(!(state.roomThemes||[]).includes(h.theme))state.roomThemes.push(h.theme);render();save();notify('Построен новый дом: '+h.name+'!')};
+   card.append(btn);houseList.append(card);
+  });
+ }
+ const themes=[
+  {id:'classic',name:'Уютная классика',emoji:'🪵',cost:0,desc:'Тёплая деревянная комната'},
+  {id:'pastel',name:'Пастельная мечта',emoji:'🌸',cost:1500,desc:'Нежные розовые и сиреневые тона'},
+  {id:'forest',name:'Лесной домик',emoji:'🌿',cost:5000,desc:'Зелень, уют и природный стиль'},
+  {id:'space',name:'Космическая база',emoji:'🪐',cost:12000,desc:'Звёзды и далёкие галактики'},
+  {id:'royal',name:'Королевский зал',emoji:'👑',cost:30000,desc:'Золотой пол и царственный интерьер'}
+ ];
+ const themeRoot=$('roomThemeList');if(themeRoot){themeRoot.innerHTML='';themes.forEach(t=>{const owned=(state.roomThemes||['classic']).includes(t.id),selected=state.roomTheme===t.id;const b=document.createElement('button');b.className='room-theme'+(selected?' selected':'');b.innerHTML=`<b>${t.emoji} ${t.name}${selected?' · Выбрано':''}</b><small>${owned?'Уже открыто':fmt(t.cost)+' монет'}</small><small>${t.desc}</small>`;b.onclick=()=>{if(!owned){if(state.coins<t.cost){notify('Не хватает монет на этот интерьер');return}state.coins-=t.cost;state.roomThemes.push(t.id)}state.roomTheme=t.id;render();save();notify('Интерьер изменён: '+t.name)};themeRoot.append(b)})}
+ scene.className='own-room theme-'+(state.roomTheme||'classic');scene.style.minHeight=(145+Math.min(state.houseTier,9)*18)+'px';scene.style.borderWidth=(2+Math.floor(state.houseTier/3))+'px';
+ const title=$('roomTitle');const name=state.roomName||'Мой хомячий дом';if(title)title.textContent=house.emoji+' '+house.name+' · '+name;
+ const inp=$('roomNameInput');if(inp&&document.activeElement!==inp)inp.value=name;
+ const lev=$('roomLevelLabel');if(lev)lev.textContent=fmt(state.level);
+ const trophies=ITEM_POOL.filter(x=>(state.collection||[]).some(c=>c.id===x.id)&&['epic','legendary','mythic'].includes(x.rarity));const tc=$('roomTrophyCount');if(tc)tc.textContent=trophies.length;
+ const lastSet=[...(state.setRewards||[])].reverse().map(id=>COLLECTION_SETS.find(x=>x.id===id)).find(Boolean);
+ const hamsterEmoji=lastSet?({'cozy':'🧸','garden':'🌿','magic':'🪄','space':'🚀','royal':'👑','mystic':'🔮','ocean':'🌊','festival':'🎆','legend':'🌠','myth':'🐉'}[lastSet.id]||'🐹'):'🐹';
+ const furniture=[['Растение','🪴'],['Кроватка','🛏️'],['Неоновая лампа','💡'],['Золотой трон','👑'],['Рамка трофея','🖼️'],['Золотой пьедестал','🏆'],['Радужный ковёр','🌈'],['Планета-декор','🪐']];
+ const items=[];items.push('<span class="room-item">'+((state.roomItems||[]).includes('Растение')?'🪴':'🪟')+'</span>');
+ items.push('<span class="room-item">'+((state.roomItems||[]).includes('Неоновая лампа')?'💡':'✨')+'</span>');
+ items.push('<span class="room-item hamster">'+((state.roomItems||[]).includes('Золотой трон')?'👑':hamsterEmoji)+'</span>');
+ items.push('<span class="room-item">'+((state.roomItems||[]).includes('Кроватка')?'🛏️':'🧺')+'</span>');
+ if((state.roomItems||[]).includes('Рамка трофея'))items.push('<span class="room-item">🖼️</span>');
+ if((state.roomItems||[]).includes('Золотой пьедестал'))items.push('<span class="room-item">🏆</span>');
+ if((state.roomItems||[]).includes('Радужный ковёр'))items.push('<span class="room-item">🌈</span>');
+ if((state.roomItems||[]).includes('Планета-декор'))items.push('<span class="room-item">🪐</span>');
+ if(lastSet)items.push('<span class="room-item">'+hamsterEmoji+'</span>');
+ if(trophies.length)items.push('<span class="room-item trophy">🏆 Витрина: '+trophies.slice(-3).map(x=>x.emoji).join(' ')+'</span>');
+ scene.innerHTML=items.join('');
+ const room=$('roomList');if(room){room.innerHTML='';const opts=[['🪴','Растение',250],['🛏️','Кроватка',500],['💡','Неоновая лампа',1000],['👑','Золотой трон',5000],['🖼️','Рамка трофея',1200],['🏆','Золотой пьедестал',2500],['🌈','Радужный ковёр',3500],['🪐','Планета-декор',8000]];opts.forEach(([emoji,itemName,cost])=>{const owned=(state.roomItems||[]).includes(itemName);const row=document.createElement('div');row.className='upgrade';const icon=document.createElement('div');icon.className='upgrade-icon';icon.textContent=emoji;const main=document.createElement('div');main.className='upgrade-main';const b=document.createElement('b');b.textContent=itemName;const small=document.createElement('small');small.textContent=owned?'Уже стоит в комнате':fmt(cost)+' монет';main.append(b,small);const btn=document.createElement('button');btn.className='btn '+(owned?'blue':'gold');btn.textContent=owned?'Куплено':'Купить';btn.disabled=owned||state.coins<cost;btn.onclick=()=>{if(state.coins<cost)return;state.coins-=cost;state.roomItems.push(itemName);render();save();notify(itemName+' добавлен в комнату!')};row.append(icon,main,btn);room.append(row)})}
+}
+function renderExtras(){
+ const wheel=$('wheelBtn');if(wheel){const used=state.wheelDate===today();wheel.disabled=used;wheel.textContent=used?'✅ Уже крутили сегодня':'🎡 Крутить бесплатно';$('wheelStatus').textContent=used?'Возвращайся завтра за новым бесплатным вращением!':'Одно бесплатное вращение в день. Чем повезёт?'}
+ const claimed=new Set(state.passClaimed||[]);const points=state.taps+state.level*5,available=Math.min(30,Math.floor(points/30));let pass=1;while(pass<=30&&claimed.has(pass))pass++;$('passLevel').textContent=`Этап ${Math.min(pass,30)} / 30`;$('passFill').style.width=Math.min(100,(points%30)/30*100)+'%';$('passDesc').textContent='Награда этапа: '+fmt(Math.min(pass,30)*250)+' монет';$('passBtn').disabled=pass>available||pass>30;$('passBtn').textContent=pass>30?'🏆 Все награды получены':pass>available?'Набери ещё сезонные очки':'Забрать награду';
+ const skills=$('skillList');if(skills){skills.innerHTML='';const defs=[['power','👆','Сила тапа',state.skills.power,`+1 к базовому тапу · цена ${fmt(500+state.skills.power*800)} 🪙`],['focus','🧠','Фокус',state.skills.focus,`Больше опыта за тап · цена ${fmt(1000+state.skills.focus*1500)} 🪙`],['energy','⚡','Энергия',state.skills.energy,`+50 к запасу энергии · цена ${fmt(700+state.skills.energy*1000)} 🪙`]];defs.forEach(([id,icon,name,lvl,desc])=>{const row=document.createElement('div');row.className='upgrade';const ic=document.createElement('div');ic.className='upgrade-icon';ic.textContent=icon;const main=document.createElement('div');main.className='upgrade-main';main.innerHTML=`<b>${name} · ур. ${lvl}</b><small>${desc}</small>`;const btn=document.createElement('button');btn.className='btn gold';const cost=id==='power'?500+lvl*800:id==='focus'?1000+lvl*1500:700+lvl*1000;btn.textContent='Купить';btn.disabled=state.coins<cost;btn.onclick=()=>{if(state.coins<cost)return;state.coins-=cost;state.skills[id]++;if(id==='power')state.perTap++;if(id==='energy'){state.maxEnergy+=50;state.energy+=50}render();save();notify(name+' улучшен!')};row.append(ic,main,btn);skills.append(row)})}
+ renderRoom();
+ renderDailyEvent();renderAchievements();const board=$('leaderboard');if(board)board.innerHTML=`<div class="rank-row"><span>Уровень</span><b>${fmt(state.level)}</b></div><div class="rank-row"><span>Всего тапов</span><b>${fmt(state.taps)}</b></div><div class="rank-row"><span>Предметов собрано</span><b>${(state.collection||[]).length}/100</b></div><div class="rank-row"><span>Престиж</span><b>${state.prestige||0}</b></div>`;
+ const pi=$('prestigeInfo');if(pi)pi.textContent=`Уровень ${state.level}. Престиж: ${state.prestige||0}. Бонус дохода: +${(state.prestige||0)*20}%.`;$('prestigeBtn').disabled=state.level<100;$('prestigeBtn').textContent=state.level<100?'Откроется на 100 уровне':'♻️ Переродиться · +20%';
+}
+function render(){refreshDailyTasks(); $('coins').textContent=fmt(state.coins);$('perTap').textContent='+'+fmt(state.perTap);$('hourly').textContent=fmt(state.passive);$('energyText').textContent=fmt(state.energy)+'/'+fmt(state.maxEnergy);$('energyFill').style.width=Math.max(0,state.energy/state.maxEnergy*100)+'%';$('level').textContent=state.level;$('heroLevel').textContent=state.level;updatePetAppearance();
+ const nextXp=xpForLevel(state.level+1),curXp=xpForLevel(state.level),earnedXp=Math.max(0,state.xp-curXp),needXp=Math.max(1,nextXp-curXp),pct=Math.min(100,earnedXp/needXp*100);
+ $('xpFill').style.width=pct+'%';
+ $('xpCaption').textContent=fmt(earnedXp)+' / '+fmt(needXp)+' XP до следующего уровня';
+ const nextMilestone=(Math.floor(state.level/5)+1)*5,perk=Math.floor(state.level/5)*5;
+ $('milestone').innerHTML='🐹 <b>Следующая цель:</b> уровень '+nextMilestone+' — новый хомяк и +5% к доходу за тап. Текущая привилегия: +'+perk+'%.';
+ $('streak').textContent=state.dailyStreak+' '+(state.dailyStreak===1?'день':'дн.');const alreadyClaimed=state.lastDaily===today();$('dailyBtn').textContent=alreadyClaimed?'✅ Бонус уже получен сегодня':'🎁 Забрать бонус · '+fmt(dailyReward())+' 🪙';$('dailyBtn').disabled=alreadyClaimed;$('totalTaps').textContent=fmt(state.taps);$('totalUpgrades').textContent=fmt(state.upgradeCount);$('earned').textContent=fmt(state.earned);if(document.activeElement!==$('playerName'))$('playerName').value=state.name;renderUpgrades();renderTasks();renderEvolution();renderExtras();renderCollection();refreshAdminPanel();save()}
+function showPage(id){const target=$(id);if(!target)return;document.querySelectorAll('.page').forEach(p=>p.classList.toggle('active',p.id===id));document.querySelectorAll('[data-page]').forEach(b=>b.classList.toggle('active',b.dataset.page===id));}
+document.querySelectorAll('[data-page]').forEach(b=>b.addEventListener('click',()=>showPage(b.dataset.page)));
+document.querySelectorAll('.shop-buy').forEach(b=>b.addEventListener('click',()=>notify('Оплата пока не подключена — деньги не списываются.')));
+$('tapPet').addEventListener('click',e=>{if(state.energy<1){notify('Энергия закончилась — подожди восстановления');return}state.energy-=1;state.taps++;dailyEventRefresh();state.eventTaps=(state.eventTaps||0)+1;combo++;const critical=Math.random()<Math.min(.35,.05+combo*.005);if(critical)state.criticals=(state.criticals||0)+1;const comboMult=1+Math.min(2,Math.floor(combo/25)*.25);const perkMult=(1+Math.floor(state.level/5)*0.05)*(1+collectionBonus());const amount=Math.max(1,Math.floor(state.perTap*(critical?5:1)*comboMult*perkMult));gain(amount,true);$('tapCombo').textContent=(critical?'💥 КРИТ! ':'🔥 Серия ' )+'×'+combo;$('tapCombo').classList.add('show');clearTimeout(comboTimer);comboTimer=setTimeout(()=>{combo=0;$('tapCombo').classList.remove('show')},1800);const f=document.createElement('span');f.className='float';f.textContent=(critical?'💥 ':'+')+fmt(amount)+' 🪙';const rect=$('tapPet').getBoundingClientRect();f.style.left=(e.clientX?e.clientX-rect.left:rect.width/2)+'px';f.style.top=(e.clientY?e.clientY-rect.top:rect.height/2)+'px';$('tapPet').append(f);setTimeout(()=>f.remove(),800);$('tapPet').classList.add('bop');setTimeout(()=>$('tapPet').classList.remove('bop'),100);render();save()});
+$('dailyBtn').addEventListener('click',()=>{
+ if(state.lastDaily===today()){notify('Ты уже забрал бонус сегодня');return}
+ if(state.lastDaily===yesterday())state.dailyStreak=(state.dailyStreak||0)+1;else state.dailyStreak=1;
+ const reward=dailyReward();state.lastDaily=today();state.dailyClaims=(state.dailyClaims||0)+1;gain(reward);render();notify('Ежедневный бонус: +'+reward+' 🪙 · серия '+state.dailyStreak);save()
+});
+$('saveRoomName').addEventListener('click',()=>{const n=$('roomNameInput').value.trim();state.roomName=n||'Мой хомячий дом';renderRoom();save();notify('Название комнаты сохранено! 🏡')});
+$('saveName').addEventListener('click',()=>{const n=$('playerName').value.trim();state.name=n||'Игрок';render();notify('Имя сохранено: '+state.name);save()});
+$('resetBtn').addEventListener('click',()=>{if(!confirm('Точно сбросить весь прогресс? Это нельзя отменить.'))return;state=initial();render();notify('Прогресс сброшен');save()});
+$('wheelBtn').addEventListener('click',()=>{
+ if(state.wheelDate===today()){notify('Колесо уже использовано сегодня');return}
+ const wheel=document.querySelector('.wheel');const btn=$('wheelBtn');if(wheel.classList.contains('spinning'))return;btn.disabled=true;wheel.classList.remove('spinning');void wheel.offsetWidth;wheel.classList.add('spinning');
+ const prizes=[{emoji:'🪙',name:'500 монет',run:()=>gain(500,false)},{emoji:'🪙',name:'1 500 монет',run:()=>gain(1500,false)},{emoji:'⚡',name:'Полная энергия',run:()=>state.energy=state.maxEnergy},{emoji:'💎',name:'3 000 монет',run:()=>gain(3000,false)},{emoji:'🪙',name:'800 монет',run:()=>gain(800,false)},{emoji:'🎁',name:'5 000 монет',run:()=>gain(5000,false)}];const prize=prizes[Math.floor(Math.random()*prizes.length)];
+ setTimeout(()=>{state.wheelDate=today();$('wheelEmoji').textContent=prize.emoji;prize.run();wheel.classList.remove('spinning');render();save();notify('Колесо: '+prize.name+'!');},2600)
+});
+$('passBtn').addEventListener('click',()=>{const points=state.taps+state.level*5,available=Math.min(30,Math.floor(points/30)),claimed=new Set(state.passClaimed||[]);let stage=1;while(stage<=30&&claimed.has(stage))stage++;if(stage>available||stage>30){notify('Сначала набери больше сезонных очков');return}state.passClaimed.push(stage);const reward=stage*250;gain(reward,false);render();save();notify('Сезонная награда: +'+fmt(reward)+' монет')});
+$('chestBtn').addEventListener('click',openChest);
+$('dailyEventBtn').addEventListener('click',()=>{dailyEventRefresh();if(state.eventTaps<100||state.eventClaimed){notify('Событие ещё не выполнено');return}state.eventClaimed=true;state.coins+=1500;state.earned+=1500;state.chestKeys=(state.chestKeys||0)+1;render();save();notify('Событие выполнено! +1 500 монет и ключ от сундука 🎁')});
+$('prestigeBtn').addEventListener('click',()=>{if(state.level<100){notify('Нужно достичь 100 уровня');return}if(!confirm('Перерождение сбросит уровень и опыт, но сохранит коллекцию и даст постоянный бонус +20%. Продолжить?'))return;state.prestige=(state.prestige||0)+1;state.level=1;state.xp=0;state.coins=0;state.energy=state.maxEnergy;state.upgrades={tap:0,auto:0,energy:0};state.perTap=1+(state.skills?.power||0);state.passive=0;state.levelMilestoneClaimed=0;render();save();notify('Перерождение! Постоянный бонус увеличен.')});
+// Админ-панель: все привилегированные действия отправляются на сервер,
+// который обязан проверять подпись Telegram initData.
+const OWNER_TELEGRAM_ID='8841628332';
+const adminActionLog=[];
+function isOwnerTelegram(){try{return String(window.Telegram?.WebApp?.initDataUnsafe?.user?.id||'')===OWNER_TELEGRAM_ID}catch(e){return false}}
+function adminLog(message){const stamp=new Date().toLocaleString('ru-RU');adminActionLog.unshift(stamp+' — '+message);const root=$('adminLog');if(root)root.innerHTML=adminActionLog.slice(0,30).map(x=>'<div>'+escapeAdminText(x)+'</div>').join('')||'<div>Нет действий</div>'}
+function escapeAdminText(value){return String(value).replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]))}
+function refreshAdminPanel(){const user=window.Telegram?.WebApp?.initDataUnsafe?.user||{};if(isOwnerTelegram()){const nav=$('adminNav');if(nav)nav.classList.add('admin-visible')}const id=$('adminIdentity');if(id)id.textContent=isOwnerTelegram()?'Владелец Telegram · ID: '+String(user.id)+' · '+String(user.first_name||'Администратор')+'. Сервер проверит права при каждом действии.':'Войди в игру через Telegram Mini App под аккаунтом владельца.';if($('adminLocalCoins'))$('adminLocalCoins').textContent=fmt(state.coins);if($('adminLocalLevel'))$('adminLocalLevel').textContent=fmt(state.level);if($('adminLocalTaps'))$('adminLocalTaps').textContent=fmt(state.taps);if($('adminLocalUpgrades'))$('adminLocalUpgrades').textContent=fmt(state.upgradeCount)}
+async function adminRequest(path,body){if(!isOwnerTelegram()){notify('Нет доступа');throw new Error('Нет доступа владельца')}return gameApi(path,'POST',body)}
+function adminTargetId(){const id=$('adminPlayerId').value.trim();if(!/^\d{1,20}$/.test(id))throw new Error('Введи корректный Telegram ID игрока');return id}
+$('adminSearchBtn').addEventListener('click',async()=>{try{const id=adminTargetId();const data=await gameApi('/api/admin/player?id='+encodeURIComponent(id));$('adminPlayerResult').textContent=JSON.stringify(data.player,null,2);adminLog('Найден игрок '+id)}catch(e){$('adminPlayerResult').textContent=e.message;notify(e.message)}});
+$('adminCoinsBtn').addEventListener('click',async()=>{try{const id=adminTargetId(),amount=Number($('adminCoinAmount').value),action=$('adminCoinAction').value;if(!Number.isFinite(amount)||amount<0)throw new Error('Укажи правильное количество монет');const data=await adminRequest('/api/admin/player/action',{playerId:id,action:'coins',operation:action,amount});$('adminPlayerResult').textContent=JSON.stringify(data.player,null,2);adminLog('Изменены монеты игрока '+id);notify('Монеты обновлены на сервере')}catch(e){notify(e.message)}});
+$('adminPremiumBtn').addEventListener('click',async()=>{try{const id=adminTargetId(),mode=$('adminPremium').value;const data=await adminRequest('/api/admin/player/action',{playerId:id,action:'premium',operation:mode,days:Number($('adminPremiumDays')?.value||30)});$('adminPlayerResult').textContent=JSON.stringify(data.player,null,2);adminLog('Premium изменён для '+id);notify('Premium обновлён')}catch(e){notify(e.message)}});
+$('adminBanBtn').addEventListener('click',async()=>{try{const id=adminTargetId();const data=await adminRequest('/api/admin/player/action',{playerId:id,action:'ban',reason:$('adminBanReason').value||'Без указания причины'});$('adminPlayerResult').textContent=JSON.stringify(data.player,null,2);adminLog('Заблокирован игрок '+id);notify('Игрок заблокирован')}catch(e){notify(e.message)}});
+$('adminUnbanBtn').addEventListener('click',async()=>{try{const id=adminTargetId();const data=await adminRequest('/api/admin/player/action',{playerId:id,action:'unban'});$('adminPlayerResult').textContent=JSON.stringify(data.player,null,2);adminLog('Разблокирован игрок '+id);notify('Блокировка снята')}catch(e){notify(e.message)}});
+$('adminBroadcastBtn').addEventListener('click',async()=>{try{const message=$('adminAnnouncement').value.trim();if(!message)throw new Error('Напиши текст объявления');await adminRequest('/api/admin/settings',{announcement:message});adminLog('Сохранено глобальное объявление');notify('Объявление сохранено на сервере')}catch(e){notify(e.message)}});
+$('adminMaintenanceBtn').addEventListener('click',async()=>{try{const data=await adminRequest('/api/admin/settings',{maintenance:true,economyMultiplier:Number($('adminEconomy')?.value||1)});adminLog('Обновлены глобальные настройки');notify('Настройки сохранены')}catch(e){notify(e.message)}});
+if(window.Telegram?.WebApp){window.Telegram.WebApp.ready();window.Telegram.WebApp.expand()}
+refreshAdminPanel();
+load();refreshDailyTasks();refreshLevel();render();
+setInterval(()=>{if(state.energy<state.maxEnergy)state.energy=Math.min(state.maxEnergy,state.energy+1);if(state.passive>0)gain(state.passive/3600,false);render();},1000);
+</script></body></html>

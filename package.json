@@ -1,0 +1,12 @@
+{
+  "name": "hamster-tap-server",
+  "version": "1.0.0",
+  "description": "Hamster Tap Club game server",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": "22.x"
+  }
+}
